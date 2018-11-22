@@ -54,19 +54,25 @@ public class Login extends AppCompatActivity {
                         .enqueue(new Callback<Backendless>() {
                             @Override
                             public void onResponse(Call<Backendless> call, Response<Backendless> response) {
-                                Backendless resp = response.body();
-                                //Die Rückgabewerte werden abgefangen und in SharedPreferences für weitere Activities gespeichert.
-                                //"apply()" ist eine assynchronische Methode um die Daten zu speichern (damit die UI nicht blockiert wird).
-                                SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-                                sp.edit().putBoolean("logged",true).apply();
-                                sp.edit().putString("username",resp.getUsername()).apply();
-                                sp.edit().putString("user-token",resp.getUserToken()).apply();
-                                Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                //Nach dem Einlogen wird der Benutzer zur Main Activity weitergeleitet.
-                                Intent intent = new Intent(Login.this, MainActivity.class);
-                                startActivity(intent);
-                                progressDialog.dismiss();
-                            }
+                                if (response.isSuccessful()) {
+                                    Backendless resp = response.body();
+                                    //Die Rückgabewerte werden abgefangen und in SharedPreferences für weitere Activities gespeichert.
+                                    //"apply()" ist eine assynchronische Methode um die Daten zu speichern (damit die UI nicht blockiert wird).
+                                    SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+                                    sp.edit().putBoolean("logged", true).apply();
+                                    sp.edit().putString("username", resp.getUsername()).apply();
+                                    sp.edit().putString("user-token", resp.getUserToken()).apply();
+                                    Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    //Nach dem Einlogen wird der Benutzer zur Main Activity weitergeleitet.
+                                    Intent intent = new Intent(Login.this, MainActivity.class);
+                                    startActivity(intent);
+                                    progressDialog.dismiss();
+                                } else {
+                                    Toast.makeText(Login.this,"Error: something went wrong", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+
+                        }
 
                             @Override
                             public void onFailure(Call<Backendless> call, Throwable t) {
