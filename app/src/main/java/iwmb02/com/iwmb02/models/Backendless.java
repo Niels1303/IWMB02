@@ -1,44 +1,58 @@
+/**
+ * Mit dieser Klasse werden Objekte für den Datenaustauch mit der REST Api Schnittstelle initialisiert.
+ * Die Attribut Namen nach "@SerializedName" müssen mit den Json Attributen 1:1 übereinstimmen.
+ */
+
 package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+import java.util.Date;
 
 public class Backendless {
 
-    @SerializedName("userStatus")
-    @Expose
-    private String userStatus;
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("username")
+    @Expose
+    private String username;
+    @SerializedName("login")
+    @Expose
+    private String login;
+    @SerializedName("lastLogin")
+    @Expose
+    private Date lastLogin;
+    @SerializedName("userStatus")
+    @Expose
+    private String userStatus;
     @SerializedName("created")
     @Expose
-    private Integer created;
+    private Date created;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("ownerId")
     @Expose
-    private Object ownerId;
+    private String ownerId;
+    @SerializedName("socialAccount")
+    @Expose
+    private String socialAccount;
     @SerializedName("updated")
     @Expose
     private Object updated;
     @SerializedName("objectId")
     @Expose
     private String objectId;
-    @SerializedName("name")
-    @Expose
-    private String name;
     @SerializedName("email")
     @Expose
     private String email;
     @SerializedName("___class")
     @Expose
     private String _class;
-
-    public String getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
-    }
+    @SerializedName("user-token")
+    @Expose
+    private String userToken;
 
     public String getPassword() {
         return password;
@@ -48,36 +62,68 @@ public class Backendless {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
-    public String get_class() {
-        return _class;
+    public String getLogin() {
+        return login;
     }
 
-    public void set_class(String _class) {
-        this._class = _class;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public Integer getCreated() {
+    public Date getLastLogin() {
+        return this.lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Object getOwnerId() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(Object ownerId) {
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public String getSocialAccount() {
+        return socialAccount;
+    }
+
+    public void setSocialAccount(String socialAccount) {
+        this.socialAccount = socialAccount;
     }
 
     public Object getUpdated() {
@@ -96,20 +142,27 @@ public class Backendless {
         this.objectId = objectId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getClass_() {
+    public String get_class() {
         return _class;
     }
 
-    public void setClass_(String _class) {
+    public void set_class(String _class) {
         this._class = _class;
     }
 
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
 }

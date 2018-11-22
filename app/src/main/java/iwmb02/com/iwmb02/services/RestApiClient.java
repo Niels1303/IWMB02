@@ -7,4 +7,8 @@ public interface RestApiClient {
     @Headers("Content-Type: application/json")
     @POST("users/register")
     Call<Backendless> createUser(@Body Backendless user);
+
+    @Headers("Content-Type: application/json")
+    @POST("users/login")
+    Call<Backendless> loginUser(@Body Backendless user);
 }
