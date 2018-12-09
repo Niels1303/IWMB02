@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_date"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="events"/>
+    <item
+        android:id="@+id/nav_game"
+        android:icon="@drawable/ic_game"
+        android:title="games"/>
+    <item
+        android:id="@+id/nav_food"
+        android:icon="@drawable/ic_local_dining_black_24dp"
+        android:title="food"/>
+    <item
+        android:id="@+id/nav_rating"
+        android:icon="@drawable/ic_star_border_black_24dp"
+        android:title="ratings"/>
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/ic_chat_black_24dp"
+        android:title="chat"/>
+</menu>

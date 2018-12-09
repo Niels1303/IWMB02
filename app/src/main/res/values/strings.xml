@@ -1,16 +1,17 @@
 <resources>
-    <string name="create_account">Create Account</string>
-    <string name="enter_your_username">username</string>
+    <string name="create_account">create Account</string>
+    <string name="enter_your_last_name">last Name</string>
     <string name="enter_your_email_address">email address</string>
     <string name="enter_your_password">password</string>
     <string name="re_enter_your_password">re-enter password</string>
-    <string name="create_new_account">Create new account</string>
-    <string name="PleasefillOutAllFields">Please fill out all fields</string>
-    <string name="login">Login</string>
+    <string name="create_new_account">create new account</string>
+    <string name="PleasefillOutAllFields">please fill out all fields</string>
+    <string name="login">login</string>
     <string name="email_address">email address</string>
     <string name="password">password</string>
     <string name="app_logo">app logo</string>
-    <string name="loading">Loading...please wait..</string>
+    <string name="loading">loading...please wait..</string>
     <string name="busyLogin">busy login you in... Please wait...</string>
     <string name="app_name">Game Night Organizer</string>
+    <string name="username">username</string>
 </resources>

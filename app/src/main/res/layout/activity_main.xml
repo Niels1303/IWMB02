@@ -17,4 +17,21 @@
             android:id="@+id/toolbar" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+    <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/fragmentContainer"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+
+    </FrameLayout>
+    <android.support.design.widget.BottomNavigationView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/bottom_navigation" app:itemIconTint="@drawable/bottom_navigation_color"
+            app:menu="@menu/bottom_navigation" app:itemBackground="@color/colorPrimary"
+            app:itemTextColor="@drawable/bottom_navigation_color"/>
 </android.support.constraint.ConstraintLayout>
