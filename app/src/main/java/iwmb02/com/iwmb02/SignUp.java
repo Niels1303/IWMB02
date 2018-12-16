@@ -46,6 +46,7 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(SignUp.this,"Please make sure your passwords match", Toast.LENGTH_SHORT).show();
         } else {
             if(ConnectionChecker.connectionAvailable(getApplicationContext())) {
+                // Die Werte die über die Rest API übertragen werden sollen werden in einem neuen User Objekt implementiert
                 User user = new User();
                 user.setVorname(firstName);
                 user.setNachname(name);

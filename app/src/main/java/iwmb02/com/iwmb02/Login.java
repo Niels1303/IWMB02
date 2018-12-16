@@ -2,13 +2,13 @@ package iwmb02.com.iwmb02;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import iwmb02.com.iwmb02.models.User;
+import iwmb02.com.iwmb02.models.Globals;
 import iwmb02.com.iwmb02.services.ConnectionChecker;
 import iwmb02.com.iwmb02.services.NetworkService;
 import retrofit2.Call;
@@ -55,10 +55,14 @@ public class Login extends AppCompatActivity {
                                     User resp = response.body();
                                     //Die Rückgabewerte werden abgefangen und in SharedPreferences für weitere Activities gespeichert.
                                     //"apply()" ist eine assynchronische Methode um die Daten zu speichern (damit die UI nicht blockiert wird).
-                                    SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+                                    Globals global = Globals.getInstance();
+                                    global.setLoggedIn(true);
+                                    global.setUsername(resp.getUsername());
+                                    global.setSessionToken(resp.getSessionToken());
+                                    /*SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                                     sp.edit().putBoolean("logged", true).apply();
                                     sp.edit().putString("username", resp.getUsername()).apply();
-                                    sp.edit().putString("sessionToken", resp.getSessionToken()).apply();
+                                    sp.edit().putString("sessionToken", resp.getSessionToken()).apply();*/
                                     Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
                                     //Nach dem Einlogen wird der Benutzer zur Main Activity weitergeleitet.
                                     Intent intent = new Intent(Login.this, MainActivity.class);

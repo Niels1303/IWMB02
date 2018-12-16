@@ -1,8 +1,11 @@
 package iwmb02.com.iwmb02.services;
+import iwmb02.com.iwmb02.models.JSONResponse;
+import iwmb02.com.iwmb02.models.Nachricht;
 import iwmb02.com.iwmb02.models.User;
-import iwmb02.com.iwmb02.models.Chat;
 import retrofit2.Call;
 import retrofit2.http.*;
+
+import java.util.List;
 
 public interface RestApiClient {
 
@@ -15,6 +18,7 @@ public interface RestApiClient {
     @POST("/users")
     Call<User> createUser(@Body User user);
 
+    // "@Field" entspricht dem "key" und das dahinter stehende Object beinhaltet den Wert
     @Headers({
             "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
@@ -24,12 +28,20 @@ public interface RestApiClient {
     @POST("/login")
     Call<User> loginUser(@Field("username") String username, @Field("password") String password);
 
-    //Abonnieren eines Channels
-    @Headers("Content-Type: application/json")
-    @POST("messaging/default/subscribe")
-    Call<Chat> subscribeChannel(@Body Chat chat);
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @POST("/classes/Nachricht")
+    Call<Nachricht> sendMessage(@Body Nachricht msg);
 
-    @Headers("Content-Type: application/json")
-    @POST("messaging/default")
-    Call<Chat> publishMsg(@Body Chat chat);
+    //Bei einer Anfrage ohne Parameter werden alle Objekte der entsprechenden Klasse zurückgegeben. Zukünftig sollte eine Limiter eingebaut werden, damit nicht alle Objekte jedes Mal abgerufen werden müssen.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
+    })
+    @GET("/classes/Nachricht")
+    Call<JSONResponse> refreshMessages();
+
 }
