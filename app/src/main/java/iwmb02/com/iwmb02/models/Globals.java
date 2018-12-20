@@ -3,7 +3,7 @@
 //Diese Klasse muss im Android Manifest deklariert werden.
 package iwmb02.com.iwmb02.models;
 
-import android.app.Application;
+import java.util.Date;
 
 public class Globals {
 
@@ -18,8 +18,10 @@ public class Globals {
     }
 
     private boolean isLoggedIn;
+    private String userId;
     private String username;
     private String sessionToken;
+    private Date createdAt;
 
     public boolean isLoggedIn() {
         return isLoggedIn;
@@ -27,6 +29,22 @@ public class Globals {
 
     public void setLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getUsername() {

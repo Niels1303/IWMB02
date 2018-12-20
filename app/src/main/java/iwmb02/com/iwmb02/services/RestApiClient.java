@@ -1,11 +1,12 @@
 package iwmb02.com.iwmb02.services;
-import iwmb02.com.iwmb02.models.JSONResponse;
+import iwmb02.com.iwmb02.models.JSONGameResponse;
+import iwmb02.com.iwmb02.models.JSONNachrichtResponse;
 import iwmb02.com.iwmb02.models.Nachricht;
 import iwmb02.com.iwmb02.models.User;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.util.List;
+import java.util.Map;
 
 public interface RestApiClient {
 
@@ -17,6 +18,13 @@ public interface RestApiClient {
     })
     @POST("/users")
     Call<User> createUser(@Body User user);
+
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
+    })
+    @GET("/classes/joinUserBrettspiel")
+    Call<JSONGameResponse> getGames(@QueryMap(encoded=true) Map<String, String> options);
 
     // "@Field" entspricht dem "key" und das dahinter stehende Object beinhaltet den Wert
     @Headers({
@@ -42,6 +50,6 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/Nachricht")
-    Call<JSONResponse> refreshMessages();
+    Call<JSONNachrichtResponse> refreshMessages();
 
 }

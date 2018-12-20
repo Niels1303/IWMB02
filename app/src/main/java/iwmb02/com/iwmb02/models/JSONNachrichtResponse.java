@@ -4,7 +4,7 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSONResponse {
+public class JSONNachrichtResponse {
     @SerializedName("results")
     @Expose
     private Nachricht[] results;
@@ -16,4 +16,5 @@ public class JSONResponse {
     public void setResults(Nachricht[] results) {
         this.results = results;
     }
+
 }

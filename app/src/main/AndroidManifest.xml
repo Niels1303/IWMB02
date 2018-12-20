@@ -20,12 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden">
+                android:name=".MainActivity"
+                android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity android:name=".Login">
         </activity>
         <activity android:name=".SignUp">
+        </activity>
+        <activity android:name=".Profile">
         </activity>
     </application>
 

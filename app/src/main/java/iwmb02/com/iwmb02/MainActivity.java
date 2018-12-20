@@ -38,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_logout) {
             // Beim Drücken auf "logout" wird global.isLoggedIn auf "false" gesetzt. Dadurch muss sich der Anwender wieder einlogen.
             Globals global = Globals.getInstance();
-            global.setLoggedIn(true);
+            global.setLoggedIn(false);
             //... und der Benutzer zur Login Activity weitergeleitet.
             Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_profile) {
+            Intent intent = new Intent(MainActivity.this, Profile.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

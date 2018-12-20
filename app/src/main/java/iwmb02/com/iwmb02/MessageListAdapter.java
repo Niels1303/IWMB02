@@ -90,8 +90,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getBody());
 
             // Format the stored timestamp into a readable String using method.
-            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH.mm");
-            //timeText.setText(simpleDateFormat.format(message.getCreatedAt()));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, HH.mm");
+            String date_str = simpleDateFormat.format(message.getCreatedAt());
+            timeText.setText(date_str);
         }
     }
 
@@ -110,8 +111,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getBody());
 
             // Format the stored timestamp into a readable String using method.
-            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH.mm");
-            //timeText.setText(simpleDateFormat.format(message.getCreatedAt()));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, HH.mm");
+            String date_str = simpleDateFormat.format(message.getCreatedAt());
+            timeText.setText(date_str);
 
             nameText.setText(message.getUserId());
         }

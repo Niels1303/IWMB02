@@ -57,7 +57,9 @@ public class Login extends AppCompatActivity {
                                     //"apply()" ist eine assynchronische Methode um die Daten zu speichern (damit die UI nicht blockiert wird).
                                     Globals global = Globals.getInstance();
                                     global.setLoggedIn(true);
+                                    global.setUserId(resp.getObjectId());
                                     global.setUsername(resp.getUsername());
+                                    global.setCreatedAt(resp.getCreatedAt());
                                     global.setSessionToken(resp.getSessionToken());
                                     /*SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                                     sp.edit().putBoolean("logged", true).apply();
