@@ -4,18 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class JSONGameResponse {
-    public class JSONNachrichtResponse {
         @SerializedName("results")
         @Expose
-        private joinUserBrettspiel[] results;
+        private GameResponse[] results;
 
-        public joinUserBrettspiel[] getResults() {
+        public GameResponse[] getResults() {
             return results;
         }
 
-        public void setResults(joinUserBrettspiel[] results) {
+        public void setResults(GameResponse[] results) {
             this.results = results;
         }
-
-    }
 }

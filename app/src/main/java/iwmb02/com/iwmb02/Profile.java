@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.models.Brettspiel;
+import iwmb02.com.iwmb02.models.GameResponse;
 import iwmb02.com.iwmb02.models.Globals;
 import iwmb02.com.iwmb02.models.JSONGameResponse;
 import iwmb02.com.iwmb02.services.NetworkService;
@@ -17,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,8 @@ public class Profile extends AppCompatActivity {
         String userId = Globals.getInstance().getUserId();
         //in diesem HashMap werden alle Parameter eingegeben
         Map<String, String> data = new HashMap<>();
-        data.put("where", "{\"user\":{\"__type\":\"Pointer\",\"className\":\"_User\",\"objectId\":\"2SkHxMEJQo\"}}");
+        //Die UserId ist dynamisch. Sie entspricht dem eingelogten User und wurde nach dem einlogen in eine globale Variabel gespeichert.
+        data.put("where", "{\"user\":{\"__type\":\"Pointer\",\"className\":\"_User\",\"objectId\":\""+userId+"\"}}");
         data.put("include", "brettspiel");
         NetworkService.getInstance()
                 .getRestApiClient()
@@ -44,13 +47,20 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONGameResponse> call, Response<JSONGameResponse> response) {
                 if(response.isSuccessful()) {
+                    ListView lv = (ListView) findViewById(R.id.lvProfile);
                     JSONGameResponse resp = response.body();
+                    GameResponse[] jub = resp.getResults();
+                    ArrayList<String> pList = new ArrayList<String>();
+                    pList.add("Username: " + Globals.getInstance().getUsername());
+                    pList.add("Owned Games:");
+                    int length = Array.getLength(jub);
+                    for (int i = 0; i < length; i++) {
+                        Brettspiel brettspiel = jub[i].getBrettspiel();
+                        pList.add("   " + brettspiel.getName() + ", Amount of Players: " + brettspiel.getPlayersNumber());
+                    }
 
-                    final ListView listview = (ListView) findViewById(R.id.lvProfile);
-                    //Array mit den Werten die in der Listview angezeigt werden sollen
-                    String[] values = new String[] {"Username: " + Globals.getInstance().getUsername(), "Games: "};
-
-
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Profile.this,android.R.layout.simple_list_item_1,pList);
+                    lv.setAdapter(arrayAdapter);
 
                 } else {
                     Toast.makeText(Profile.this, "Error: something went wrong", Toast.LENGTH_SHORT).show();

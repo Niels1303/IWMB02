@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if (response.isSuccessful()) {
                                     User resp = response.body();
-                                    //Die Rückgabewerte werden abgefangen und in SharedPreferences für weitere Activities gespeichert.
+                                    //Die Rückgabewerte werden abgefangen und als globale Variabel für weitere Activities gespeichert.
                                     //"apply()" ist eine assynchronische Methode um die Daten zu speichern (damit die UI nicht blockiert wird).
                                     Globals global = Globals.getInstance();
                                     global.setLoggedIn(true);
@@ -61,10 +61,6 @@ public class Login extends AppCompatActivity {
                                     global.setUsername(resp.getUsername());
                                     global.setCreatedAt(resp.getCreatedAt());
                                     global.setSessionToken(resp.getSessionToken());
-                                    /*SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-                                    sp.edit().putBoolean("logged", true).apply();
-                                    sp.edit().putString("username", resp.getUsername()).apply();
-                                    sp.edit().putString("sessionToken", resp.getSessionToken()).apply();*/
                                     Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
                                     //Nach dem Einlogen wird der Benutzer zur Main Activity weitergeleitet.
                                     Intent intent = new Intent(Login.this, MainActivity.class);

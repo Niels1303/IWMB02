@@ -10,75 +10,50 @@ import java.util.Date;
 
 public class User {
 
-    @SerializedName("vorname")
-    @Expose
-    private String vorname;
-    @SerializedName("nachname")
-    @Expose
-    private String nachname;
-    @SerializedName("password")
-    @Expose
-    private String password;
-    @SerializedName("username")
-    @Expose
-    private String username;
-    @SerializedName("email")
-    @Expose
-    private String email;
-    @SerializedName("ausrichterCounter")
-    @Expose
-    private Integer ausrichterCounter;
-    @SerializedName("sessionToken")
-    @Expose
-    private String sessionToken;
     @SerializedName("objectId")
     @Expose
     private String objectId;
+    @SerializedName("ausrichterCounter")
+    @Expose
+    private Integer ausrichterCounter;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("nachname")
+    @Expose
+    private String nachname;
+    @SerializedName("username")
+    @Expose
+    private String username;
+    @SerializedName("vorname")
+    @Expose
+    private String vorname;
     @SerializedName("createdAt")
     @Expose
     private Date createdAt;
     @SerializedName("updatedAt")
     @Expose
     private Date updatedAt;
+    @SerializedName("password")
+    @Expose
+    private String password;
+    @SerializedName("sessionToken")
+    @Expose
+    private String sessionToken;
+    @SerializedName("__type")
+    @Expose
+    private String type;
+    @SerializedName("className")
+    @Expose
+    private String className;
 
-    public String getVorname() {
-        return vorname;
+
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getNachname() {
-        return nachname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     public Integer getAusrichterCounter() {
@@ -89,20 +64,36 @@ public class User {
         this.ausrichterCounter = ausrichterCounter;
     }
 
-    public String getSessionToken() {
-        return sessionToken;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSessionToken(String sessionToken) {
-        this.sessionToken = sessionToken;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getObjectId() {
-        return objectId;
+    public String getNachname() {
+        return nachname;
     }
 
-    public void setOnjectId(String onjectId) {
-        this.objectId = onjectId;
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getVorname() {
+        return vorname;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
     }
 
     public Date getCreatedAt() {
@@ -119,5 +110,37 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSessionToken() {
+        return sessionToken;
+    }
+
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

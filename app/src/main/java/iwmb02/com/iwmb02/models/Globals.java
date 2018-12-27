@@ -3,7 +3,9 @@
 //Diese Klasse muss im Android Manifest deklariert werden.
 package iwmb02.com.iwmb02.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Globals {
 
@@ -22,6 +24,7 @@ public class Globals {
     private String username;
     private String sessionToken;
     private Date createdAt;
+    private TeilnehmerResponse[] teilnehmerResponses;
 
     public boolean isLoggedIn() {
         return isLoggedIn;
@@ -61,5 +64,13 @@ public class Globals {
 
     public void setSessionToken(String sessionToken) {
         this.sessionToken = sessionToken;
+    }
+
+    public TeilnehmerResponse[] getTeilnehmerResponses() {
+        return teilnehmerResponses;
+    }
+
+    public void setTeilnehmerResponses(TeilnehmerResponse[] teilnehmerResponses) {
+        this.teilnehmerResponses = teilnehmerResponses;
     }
 }
