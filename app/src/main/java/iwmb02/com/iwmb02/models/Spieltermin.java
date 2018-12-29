@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Spieltermin {
+public class Spieltermin implements Comparable<Spieltermin> {
 
 
     @SerializedName("objectId")
@@ -76,5 +76,10 @@ public class Spieltermin {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public int compareTo(Spieltermin spieltermin) {
+        return this.getEventDate().getEventDate().compareTo(spieltermin.getEventDate().getEventDate());
     }
 }

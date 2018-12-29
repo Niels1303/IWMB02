@@ -23,8 +23,7 @@ public class RatingsFragment extends Fragment {
 
     private TeilnehmerResponse[] resp = Globals.getInstance().getTeilnehmerResponses();
     //Dies ist nur eine "shortcut" Lösung. Fall mehr Zeit besteht, sollte eine Objectliste anstelle 2 Arraylisten verwendet werden damit die Daten chronologisch sortiert werden können.
-    private ArrayList<Date> spieltermine = new ArrayList<Date>();
-    private ArrayList<String> spielterminIds = new ArrayList<String>();
+    private ArrayList<Spieltermin> spieltermine = new ArrayList<Spieltermin>();
     //Hier kann das Format des anzeigten Datums angepasst werden
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
     private TextView tvDate;
@@ -40,15 +39,13 @@ public class RatingsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ratings, container, false);
         //Da die JSONRückgabe verschachtelt ist, müssen die Spieltermine tief in dem Objekt gesucht werden
         for (int i = 0; i < resp.length; i++) {
-            TeilnehmerResponse teilnehmerResp = resp[i];
-            Spieltermin spieltemin = teilnehmerResp.getSpielterminId();
-            spielterminIds.add(spieltemin.getObjectId());
-            EventDate eventDate = spieltemin.getEventDate();
-            spieltermine.add(eventDate.getEventDate());
+                TeilnehmerResponse teilnehmerResp = resp[i];
+                spieltermine.add(teilnehmerResp.getSpielterminId());
         }
+        Collections.sort(spieltermine);
         tvDate = v.findViewById(R.id.tvDate);
         //Counter fängt bei "0" an, deswegen wird das älteste Datum angezeigt
-        String strDate = dateFormat.format(spieltermine.get(counter));
+        String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getEventDate());
         tvDate.setText(strDate);
         ibLeft = v.findViewById(R.id.ibLeft);
         //Click auf dem linken Pfeil (ältere Spieltermine)
@@ -59,7 +56,7 @@ public class RatingsFragment extends Fragment {
                     Toast.makeText( getActivity(), "No older events", Toast.LENGTH_SHORT ).show();
                 } else {
                     counter--;
-                    String strDate = dateFormat.format(spieltermine.get(counter));
+                    String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getEventDate());
                     tvDate.setText(strDate);
                 }
             }
@@ -74,7 +71,7 @@ public class RatingsFragment extends Fragment {
                     Toast.makeText( getActivity(), "No younger events", Toast.LENGTH_SHORT ).show();
                 } else {
                     counter++;
-                    String strDate = dateFormat.format(spieltermine.get(counter));
+                    String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getEventDate());
                     tvDate.setText(strDate);
                 }
             }
@@ -191,7 +188,7 @@ public class RatingsFragment extends Fragment {
             public void onClick(View v) {
 
                 final String userId = Globals.getInstance().getUserId();
-                final String spielterminId = spielterminIds.get(counter);
+                final String spielterminId = spieltermine.get(counter).getObjectId();
                 Map<String, String> data = new HashMap<>();
                 //Bevor die Bewertungen in der DB gespeichert werden wird überprüft, ob der User seine Bewertung bereits abgegeben hat. Also ob ein Feld bereits sowohl die userId als auch die spielterminId besitzt.
                 data.put("where", "{\"$and\":[{\"userId\":{\"__type\":\"Pointer\",\"className\":\"_User\",\"objectId\":\""+ userId +"\"}},{\"spielterminId\":{\"__type\":\"Pointer\",\"className\":\"Spieltermin\",\"objectId\":\""+ spielterminId +"\"}}]}");
@@ -216,7 +213,7 @@ public class RatingsFragment extends Fragment {
                                         Spieltermin spieltermin = new Spieltermin();
                                         spieltermin.setType("Pointer");
                                         spieltermin.setClassName("Spieltermin");
-                                        spieltermin.setObjectId(spielterminIds.get(counter));
+                                        spieltermin.setObjectId(spielterminId);
 
                                         Bewertung bewertung = new Bewertung();
                                         bewertung.setUserId(user);

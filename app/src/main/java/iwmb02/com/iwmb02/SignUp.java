@@ -65,9 +65,13 @@ public class SignUp extends AppCompatActivity {
                         .enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
-                                Toast.makeText(SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                                SignUp.this.finish();
+                                if(response.isSuccessful()) {
+                                    Toast.makeText(SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                    SignUp.this.finish();
+                                } else{
+                                    Toast.makeText(SignUp.this,"Error: Something went wrong",Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
