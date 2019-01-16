@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.Adapter.MessageListAdapter;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Globals;
 import iwmb02.com.iwmb02.models.JSONNachrichtResponse;
 import iwmb02.com.iwmb02.models.Nachricht;

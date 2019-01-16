@@ -23,7 +23,8 @@ public class NetworkService {
                 })
                 .create();*/
 
-        retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit
+                .Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

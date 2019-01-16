@@ -77,4 +77,12 @@ public interface RestApiClient {
     Call<JSONBewertungResponse> setBewertung(@Body Bewertung bewertung);
 
 
+    //Hier wird ein Eventdate und FoodSupplier abgerufen von der Tabelle Spieltermin
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
+    })
+
+    @GET("classes/Spieltermin")
+    Call<JSONSpielterminResponse> getResults();
 }

@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.User;
 import iwmb02.com.iwmb02.services.ConnectionChecker;
 import iwmb02.com.iwmb02.services.NetworkService;

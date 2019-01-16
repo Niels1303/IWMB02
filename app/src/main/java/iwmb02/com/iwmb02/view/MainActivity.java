@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Globals;
 import iwmb02.com.iwmb02.models.JSONTeilnehmerResponse;
 import iwmb02.com.iwmb02.services.NetworkService;

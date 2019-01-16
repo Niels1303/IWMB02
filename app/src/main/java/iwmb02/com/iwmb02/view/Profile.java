@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Brettspiel;
 import iwmb02.com.iwmb02.models.GameResponse;
 import iwmb02.com.iwmb02.models.Globals;

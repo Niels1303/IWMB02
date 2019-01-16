@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.*;
 import iwmb02.com.iwmb02.services.NetworkService;
 import retrofit2.Call;

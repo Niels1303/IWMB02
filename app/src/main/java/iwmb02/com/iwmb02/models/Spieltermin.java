@@ -15,36 +15,16 @@ public class Spieltermin implements Comparable<Spieltermin> {
     private String objectId;
     @SerializedName("EventDate")
     @Expose
-    private EventDate eventDate;
+    public EventDate eventDate;
     @SerializedName("createdAt")
     @Expose
-    private Date createdAt;
+    private String createdAt;
     @SerializedName("updatedAt")
     @Expose
-    private Date updatedAt;
-    @SerializedName("__type")
+    private String updatedAt;
+    @SerializedName("Food_Supplier")
     @Expose
-    private String type;
-    @SerializedName("className")
-    @Expose
-    private String className;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
+    public String foodSupplier;
 
     public String getObjectId() {
         return objectId;
@@ -62,24 +42,32 @@ public class Spieltermin implements Comparable<Spieltermin> {
         this.eventDate = eventDate;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getFoodSupplier() {
+        return foodSupplier;
+    }
+
+    public void setFoodSupplier(String foodSupplier) {
+        this.foodSupplier = foodSupplier;
     }
 
     @Override
     public int compareTo(Spieltermin spieltermin) {
-        return this.getEventDate().getEventDate().compareTo(spieltermin.getEventDate().getEventDate());
+        return this.getEventDate().gettransformdate().compareTo(spieltermin.getEventDate().gettransformdate());
     }
 }

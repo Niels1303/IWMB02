@@ -3,19 +3,38 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EventDate {
-
+    @SerializedName("__type")
+    @Expose
+    private String type;
     @SerializedName("iso")
     @Expose
-    private Date eventDate;
+    public Date iso;
+    public DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
 
-    public Date getEventDate() {
-        return eventDate;
+    public String getType() {
+        return type;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getIso() {
+        return iso;
+    }
+
+    public void setIso(Date iso) {
+        this.iso = iso;
+    }
+
+    public String gettransformdate(){
+
+        String strDate = dateFormat.format(getIso());
+        return strDate;
     }
 }
