@@ -1,9 +1,10 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Globals;
 
 //Die "Splash" Activity ist ein "Splashscreen" das nur verwendet wird um zu überprüfen, ob der User bereits eingelogt ist.

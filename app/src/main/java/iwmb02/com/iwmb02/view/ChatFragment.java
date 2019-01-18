@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+import iwmb02.com.iwmb02.R;
+import iwmb02.com.iwmb02.adapter.MessageListAdapter;
 import iwmb02.com.iwmb02.models.Globals;
 import iwmb02.com.iwmb02.models.JSONNachrichtResponse;
 import iwmb02.com.iwmb02.models.Nachricht;
@@ -58,7 +60,7 @@ public class ChatFragment extends Fragment {
                 //der eingegebene Text wird gelöscht nachdem er gesendet wurde.
                 etMessage.getText().clear();
                 message.setBody(text);
-                //Das neue Objekt in der DB hochgeladen.
+                //Das neue Objekt wird in der DB hochgeladen.
                 NetworkService.getInstance()
                         .getRestApiClient()
                         .sendMessage(message)
@@ -80,7 +82,7 @@ public class ChatFragment extends Fragment {
                 });
             }
         });
-        //Um die Backendanfragen zu minimieren, werden vorerst die Chat Nachrichten nur manuell abgefragt. Durch einen Sesrver Polling oder Benutzung eines Websockets kann man später neu Nachrichten automatisch anzeigen lassen.
+        //Um die Backendanfragen zu minimieren, werden vorerst die Chat Nachrichten nur manuell abgefragt. Durch einen Sesrver Polling oder Benutzung eines Websockets könnte man später neue Nachrichten automatisch anzeigen lassen.
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +104,7 @@ public class ChatFragment extends Fragment {
                     public void onResponse(Call<JSONNachrichtResponse> call, Response<JSONNachrichtResponse> response) {
                         if(response.isSuccessful()) {
                             JSONNachrichtResponse jsonNachrichtResponse = response.body();
-                            data = new ArrayList<>(Arrays.asList(jsonNachrichtResponse.getResults())); //das JSON array wird in Nachrichten Objekte konvertiert.
+                            data = new ArrayList<>(Arrays.asList(jsonNachrichtResponse.getResults())); //Die Rückgabe wird als ArrayList konvertiert.
                             if(messageList != null) { //Falls messageList nicht leer ist wird diese Liste gelöscht, da alle Chatnachrichten neu geladen werden.
                                 messageList.clear();
                             }

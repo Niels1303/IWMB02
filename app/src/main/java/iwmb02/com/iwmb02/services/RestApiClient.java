@@ -57,7 +57,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/Teilnehmer")
-    Call<JSONTeilnehmerResponse> getTeilnehmer(@QueryMap(encoded=true) Map<String, String> options);
+    Call<GetTeilnehmerResponse> getTeilnehmer(@QueryMap(encoded=true) Map<String, String> options);
 
     //Mit diesem Query wird überprüpft ob der eingelogte User für ein bestimmtes Spielevent bereits seine Bewertungen abgegeben hat.
     @Headers({
@@ -75,6 +75,33 @@ public interface RestApiClient {
     })
     @POST("/classes/Bewertung")
     Call<JSONBewertungResponse> setBewertung(@Body Bewertung bewertung);
+
+    //Abruf aller vorhandenen Brettspiele. Wird für das "Games" Fragment benötigt.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+    })
+    @GET("/classes/Brettspiel")
+    Call<JSONgetBrettspielResponse> getBrettspiel();
+
+    //Abruf aller vorhandenen Spieltermine. Wird für das Navigieren zwischen den Terminen in den Fragmenten benötigt.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+    })
+    @GET("/classes/Spieltermin")
+    Call<JSONgetSpielterminResponse> getSpieltermin();
+
+    //Änderung der Attribute eines Teilnehmers. Wird vom Fragment "Games" verwendet um die Auswahl eines Brettspiels zu speichern
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @PUT("/classes/Teilnehmer/{id}")
+    Call<Teilnehmer> putTeilnehmer(@Path("id") String id, @Body Teilnehmer teilnehmer);
+
+
 
 
 }

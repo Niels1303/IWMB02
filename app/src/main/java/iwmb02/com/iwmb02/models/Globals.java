@@ -5,7 +5,6 @@ package iwmb02.com.iwmb02.models;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Globals {
 
@@ -24,7 +23,8 @@ public class Globals {
     private String username;
     private String sessionToken;
     private Date createdAt;
-    private TeilnehmerResponse[] teilnehmerResponses;
+    private Teilnehmer[] teilnehmerRespons;
+    private ArrayList<Spieltermin> spieltermine;
 
     public boolean isLoggedIn() {
         return isLoggedIn;
@@ -66,11 +66,19 @@ public class Globals {
         this.sessionToken = sessionToken;
     }
 
-    public TeilnehmerResponse[] getTeilnehmerResponses() {
-        return teilnehmerResponses;
+    public ArrayList<Spieltermin> getSpieltermine() {
+        return spieltermine;
     }
 
-    public void setTeilnehmerResponses(TeilnehmerResponse[] teilnehmerResponses) {
-        this.teilnehmerResponses = teilnehmerResponses;
+    public void setSpieltermine(ArrayList<Spieltermin> spieltermine) {
+        this.spieltermine = spieltermine;
+    }
+
+    public Teilnehmer[] getTeilnehmerRespons() {
+        return teilnehmerRespons;
+    }
+
+    public void setTeilnehmerRespons(Teilnehmer[] teilnehmerRespons) {
+        this.teilnehmerRespons = teilnehmerRespons;
     }
 }

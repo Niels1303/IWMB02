@@ -3,7 +3,7 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TeilnehmerResponse {
+public class Teilnehmer {
 
     @SerializedName("objectId")
     @Expose
@@ -17,6 +17,9 @@ public class TeilnehmerResponse {
     @SerializedName("ausrichter")
     @Expose
     private boolean ausrichter;
+    @SerializedName("selectedGame")
+    @Expose
+    private String selectedGame;
 
     public String getObjectId() {
         return objectId;
@@ -48,5 +51,13 @@ public class TeilnehmerResponse {
 
     public void setAusrichter(boolean ausrichter) {
         this.ausrichter = ausrichter;
+    }
+
+    public String getSelectedGame() {
+        return selectedGame;
+    }
+
+    public void setSelectedGame(String selectedGame) {
+        this.selectedGame = selectedGame;
     }
 }

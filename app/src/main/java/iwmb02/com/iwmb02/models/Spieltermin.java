@@ -28,6 +28,9 @@ public class Spieltermin implements Comparable<Spieltermin> {
     @SerializedName("className")
     @Expose
     private String className;
+    @SerializedName("Food_Supplier")
+    @Expose
+    private String foodSupplier;
 
     public String getType() {
         return type;
@@ -78,8 +81,17 @@ public class Spieltermin implements Comparable<Spieltermin> {
         this.updatedAt = updatedAt;
     }
 
+    public String getFoodSupplier() {
+        return foodSupplier;
+    }
+
+    public void setFoodSupplier(String foodSupplier) {
+        this.foodSupplier = foodSupplier;
+    }
+
+    //Methode um die Spieltermine chronologisch nach Eventdatum zu sortieren
     @Override
     public int compareTo(Spieltermin spieltermin) {
-        return this.getEventDate().getEventDate().compareTo(spieltermin.getEventDate().getEventDate());
+        return this.getEventDate().getIso().compareTo(spieltermin.getEventDate().getIso());
     }
 }

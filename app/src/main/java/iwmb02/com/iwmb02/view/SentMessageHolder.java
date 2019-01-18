@@ -1,8 +1,9 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Nachricht;
 
 import java.text.SimpleDateFormat;

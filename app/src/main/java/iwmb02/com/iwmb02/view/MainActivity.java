@@ -1,4 +1,4 @@
-package iwmb02.com.iwmb02;
+package iwmb02.com.iwmb02.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,15 +10,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-import iwmb02.com.iwmb02.models.Globals;
-import iwmb02.com.iwmb02.models.JSONTeilnehmerResponse;
+import iwmb02.com.iwmb02.R;
+import iwmb02.com.iwmb02.models.*;
 import iwmb02.com.iwmb02.services.NetworkService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -33,28 +32,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new EventsFragment()).commit();
 
-        //Alle vorhandene Spieltermine inkl. Teilnehmer werden abgefragen und für spätere Anfragen in globale Variabel gespeichert
-        Map<String, String> data = new HashMap<>();
-        data.put("include", "spielterminId,userId");
-        NetworkService.getInstance()
-                .getRestApiClient()
-                .getTeilnehmer(data)
-                .enqueue(new Callback<JSONTeilnehmerResponse>() {
-                    @Override
-                    public void onResponse(Call<JSONTeilnehmerResponse> call, Response<JSONTeilnehmerResponse> response) {
-                        if (response.isSuccessful()) {
-                            JSONTeilnehmerResponse resp = response.body();
-                            Globals.getInstance().setTeilnehmerResponses(resp.getResults());
-                        } else {
-                            Toast.makeText(MainActivity.this, "Error: something went wrong", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+        getSpieltermine(); //Liste aller Spieltermine wird abgerufen, sortiert und als globale Variabel für die Fragments gespeichert
 
-                    @Override
-                    public void onFailure(Call<JSONTeilnehmerResponse> call, Throwable t) {
-                        Toast.makeText(MainActivity.this,"Error: " + t.getMessage() , Toast.LENGTH_SHORT).show();
-                    }
-                });
+
     }
 
     //Laden des Custom Menu (custom_menu.xml).
@@ -109,6 +89,35 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    //Alle vorhandene Spieltermine werden aus der DB abgerufen und als globale Variabel gespeichert um die Navigation durch die Spieltermine in den Fragmenten anzeigen zu können.
+    private void getSpieltermine() {
+        final ArrayList<Spieltermin> list = new ArrayList<Spieltermin>();
+        NetworkService.getInstance()
+                .getRestApiClient()
+                .getSpieltermin()
+                .enqueue(new Callback<JSONgetSpielterminResponse>() {
+                    @Override
+                    public void onResponse(Call<JSONgetSpielterminResponse> call, Response<JSONgetSpielterminResponse> response) {
+                        if(response.isSuccessful()) {
+                            JSONgetSpielterminResponse resp = response.body();
+                            Spieltermin[] spieltermine = resp.getResults();
+                            for (int i = 0; i < spieltermine.length; i++) {
+                                list.add(spieltermine[i]);
+                            }
+                            Collections.sort(list); //Die ArrayList wird chronologisch nach dem Spieleventdatum sortiert
+                            Globals.getInstance().setSpieltermine(list); //Die sortierte Liste wird als globale Variabel gespeichert um in den Event verwendet werden zu können.
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error: something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONgetSpielterminResponse> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
+                    }
+                });
+    }
 
 
 
