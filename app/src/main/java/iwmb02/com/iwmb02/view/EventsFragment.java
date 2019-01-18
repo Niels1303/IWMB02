@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import iwmb02.com.iwmb02.Adapter.SpielterminAdapter;
+import iwmb02.com.iwmb02.adapter.SpielterminAdapter;
 import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.JSONgetSpielterminResponse;
 import iwmb02.com.iwmb02.models.Spieltermin;
