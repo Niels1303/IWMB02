@@ -101,7 +101,12 @@ public interface RestApiClient {
     @PUT("/classes/Teilnehmer/{id}")
     Call<Teilnehmer> putTeilnehmer(@Path("id") String id, @Body Teilnehmer teilnehmer);
 
-
-
+    //Abruf aller vorhandenen Essensrichtungen. Wird für das "Food" Fragment benötigt.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+    })
+    @GET("/classes/Essensrichtung")
+    Call<GetEssensrichtungResponse> getEssensrichtung();
 
 }

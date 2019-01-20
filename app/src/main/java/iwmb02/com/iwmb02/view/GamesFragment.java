@@ -17,10 +17,7 @@ import retrofit2.Response;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GamesFragment extends Fragment {
 
@@ -28,7 +25,7 @@ public class GamesFragment extends Fragment {
     private ArrayList<Spieltermin> spieltermine = Globals.getInstance().getSpieltermine(); //Die in der MainActivity abgefragte Lsite aller Spieltermine wird aus den globalen Variablen geladen.
     //Hier kann das Format des anzeigten Datums angepasst werden
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
-    private TextView tvDate;
+    private TextView tvDate, tvScore;
     private ImageButton ibLeft, ibRight;
     private int counter = 0;
     private String selectedGame, objectId;
@@ -43,29 +40,14 @@ public class GamesFragment extends Fragment {
         tvDate = v.findViewById(R.id.tvDate);
         ibLeft = v.findViewById(R.id.ibLeft);
         ibRight = v.findViewById(R.id.ibRight);
+        btnSaveChoice = v.findViewById(R.id.btnSaveGame);
+        tvScore = v.findViewById(R.id.tvScore);
 
         buildEventNav();
         addItemsOnSpinner(v); //Liste aller Brettspiele wird im Spinner geladen
         getTeilnehmer(); //Lädt alle Teilnehmer Objekte aus der Teilnehmer Tabelle in der "teilnehmer" Variabel
-        btnSaveChoice = v.findViewById(R.id.btnSaveGame);
-        btnSaveChoice.setOnClickListener(new View.OnClickListener() { //Beim einem Click auf den Button wird überprüft, ob sich der User für das ausgewählte Spieltermin angemeldet hat. Gegebenenfalls wird sein Brettspielwahl in der DB gespeichert.
-            @Override
-            public void onClick(View v) {
-                boolean checkJoined = false;
-                for(int i = 0; i < teilnehmer.length; i++) {
-                    if(teilnehmer[i].getSpielterminId().getObjectId().equals(spieltermine.get(counter).getObjectId())  && teilnehmer[i].getUserId().getObjectId().equals(Globals.getInstance().getUserId())) { //Die Wahl kann nur gespeichert werden, wenn bereits ein Objekt mit entsprechendem Spieltermin UND dem eingelogten User bestehen.
-                        checkJoined = true;
-                        objectId = teilnehmer[i].getObjectId(); //wird von der "updateTeilnehmer" Methode benötigt um das Objekt zu bestimmen, das verändert werden muss.
-                        updateTeilnehmer(); //Das ausgewählte Spiel wird in der DB im entsprechendem Objekt gespeichert.
-                    }
+        setListener();
 
-
-                }
-                if(checkJoined == false) {
-                    Toast.makeText(getActivity(), "Please join the event first", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         return v;
     }
 
@@ -83,6 +65,9 @@ public class GamesFragment extends Fragment {
                     counter--;
                     String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getIso());
                     tvDate.setText(strDate);
+                    if(teilnehmer != null){ //Refresh der votes entsprechend dem neu angezeigtem Termin
+                        checkScore();
+                    }
                 }
             }
 
@@ -98,6 +83,9 @@ public class GamesFragment extends Fragment {
                     counter++;
                     String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getIso());
                     tvDate.setText(strDate);
+                    if(teilnehmer != null){ //Refresh der votes entsprechend dem neu angezeigtem Termin
+                        checkScore();
+                    }
                 }
             }
 
@@ -122,7 +110,7 @@ public class GamesFragment extends Fragment {
                                 list.add(brettspiele[i].getName());
                             }
                             //Da die DB Abfrage asynchron ist, darf der ArrayAdapter nur nach der erfolgreichen Abfrage mit der Brettspielliste geladen werden.
-                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, list);
+                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
                             //dataAdapter.notifyDataSetChanged();
                             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinner1.setAdapter(dataAdapter);
@@ -131,7 +119,7 @@ public class GamesFragment extends Fragment {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     //Speichert das ausgewählte Brettspiel im DropdownMenü in der Variabel "selectedGame"
                                     selectedGame = parent.getItemAtPosition(position).toString();
-                                    Toast.makeText(getActivity().getBaseContext(), selectedGame, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), selectedGame, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -164,6 +152,9 @@ public class GamesFragment extends Fragment {
                         if (response.isSuccessful()) {
                             GetTeilnehmerResponse resp = response.body();
                             teilnehmer = resp.getResults();
+                            if(teilnehmer != null){
+                                checkScore();
+                            }
                         } else {
                             Toast.makeText(getActivity(), "Error: something went wrong", Toast.LENGTH_SHORT).show();
                         }
@@ -200,6 +191,50 @@ public class GamesFragment extends Fragment {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public void checkScore() {
+        tvScore.setText("Current votes:");
+        List<String> lst = new ArrayList<String>();
+        //Lädt alle ausgewählte Brettspiele in einem ArrayList
+        for(int i=0; i < teilnehmer.length; i++) {
+            if(spieltermine.get(counter).getObjectId().equals(teilnehmer[i].getSpielterminId().getObjectId()) && teilnehmer[i].getSelectedGame() != null) { //Es werden nur die Brettspielauswahl des angezeigten Datums der Liste hinzugefügt bzw. angezeigt.
+                lst.add(teilnehmer[i].getSelectedGame());
+            }
+        }
+        //sortiert die ArrayList in einem LinkedHashSet welche Brettspiele wie oft vorkommen.
+        Set<String> set = new LinkedHashSet<>();
+        set.addAll(lst);
+
+        for (String s : set) {
+            tvScore.append(System.getProperty("line.separator"));
+            tvScore.append(s + " : " + Collections.frequency(lst, s));
+        }
+
+
+
+
+    }
+
+    public void setListener() {
+        btnSaveChoice.setOnClickListener(new View.OnClickListener() { //Beim einem Click auf den Button wird überprüft, ob sich der User für das ausgewählte Spieltermin angemeldet hat. Gegebenenfalls wird sein Brettspielwahl in der DB gespeichert.
+            @Override
+            public void onClick(View v) {
+                boolean checkJoined = false;
+                for(int i = 0; i < teilnehmer.length; i++) {
+                    if(teilnehmer[i].getSpielterminId().getObjectId().equals(spieltermine.get(counter).getObjectId())  && teilnehmer[i].getUserId().getObjectId().equals(Globals.getInstance().getUserId())) { //Die Wahl kann nur gespeichert werden, wenn bereits ein Objekt mit entsprechendem Spieltermin UND dem eingelogten User bestehen.
+                        checkJoined = true;
+                        objectId = teilnehmer[i].getObjectId(); //wird von der "updateTeilnehmer" Methode benötigt um das Objekt zu bestimmen, das verändert werden muss.
+                        updateTeilnehmer(); //Das ausgewählte Spiel wird in der DB im entsprechendem Objekt gespeichert.
+                    }
+
+
+                }
+                if(checkJoined == false) {
+                    Toast.makeText(getActivity(), "Please join the event first", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }

@@ -1,10 +1,11 @@
 package iwmb02.com.iwmb02.models;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
-public class Spieltermin implements Comparable<Spieltermin> {
-
+public class Essensrichtung {
 
     @SerializedName("objectId")
     @Expose
@@ -24,26 +25,12 @@ public class Spieltermin implements Comparable<Spieltermin> {
     @SerializedName("className")
     @Expose
     private String className;
-    @SerializedName("Food_Supplier")
+    @SerializedName("style")
     @Expose
-    private String foodSupplier;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
+    private String style;
+    @SerializedName("url")
+    @Expose
+    private String url;
 
     public String getObjectId() {
         return objectId;
@@ -77,17 +64,35 @@ public class Spieltermin implements Comparable<Spieltermin> {
         this.updatedAt = updatedAt;
     }
 
-    public String getFoodSupplier() {
-        return foodSupplier;
+    public String getType() {
+        return type;
     }
 
-    public void setFoodSupplier(String foodSupplier) {
-        this.foodSupplier = foodSupplier;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    //Methode um die Spieltermine chronologisch nach Eventdatum zu sortieren
-    @Override
-    public int compareTo(Spieltermin spieltermin) {
-        return this.getEventDate().getIso().compareTo(spieltermin.getEventDate().getIso());
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

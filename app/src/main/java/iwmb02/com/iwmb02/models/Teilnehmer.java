@@ -20,6 +20,9 @@ public class Teilnehmer {
     @SerializedName("selectedGame")
     @Expose
     private String selectedGame;
+    @SerializedName("selectedFood")
+    @Expose
+    private String selectedFood;
 
     public String getObjectId() {
         return objectId;
@@ -59,5 +62,13 @@ public class Teilnehmer {
 
     public void setSelectedGame(String selectedGame) {
         this.selectedGame = selectedGame;
+    }
+
+    public String getSelectedFood() {
+        return selectedFood;
+    }
+
+    public void setSelectedFood(String selectedFood) {
+        this.selectedFood = selectedFood;
     }
 }

@@ -21,7 +21,7 @@
         <TextView
                 android:text="Game I want to play"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/tvChoseGame" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/tvChoseFood" android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
@@ -31,7 +31,7 @@
                 android:id="@+id/spinner1"
                 android:spinnerMode="dropdown"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvChoseGame" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChoseFood" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="32dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="32dp" android:layout_height="wrap_content"/>
         <Button
