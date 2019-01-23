@@ -28,9 +28,7 @@ public class Essensrichtung {
     @SerializedName("style")
     @Expose
     private String style;
-    @SerializedName("url")
-    @Expose
-    private String url;
+
 
     public String getObjectId() {
         return objectId;
@@ -88,11 +86,4 @@ public class Essensrichtung {
         this.style = style;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

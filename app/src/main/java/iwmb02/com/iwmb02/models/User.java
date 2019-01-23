@@ -143,4 +143,8 @@ public class User {
     public void setClassName(String className) {
         this.className = className;
     }
+
+    public void appendVorname(String vorname) {
+        this.vorname = this.vorname + vorname;
+    }
 }

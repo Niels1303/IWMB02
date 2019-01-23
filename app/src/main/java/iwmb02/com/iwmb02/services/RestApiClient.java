@@ -76,6 +76,14 @@ public interface RestApiClient {
     @POST("/classes/Bewertung")
     Call<JSONBewertungResponse> setBewertung(@Body Bewertung bewertung);
 
+    //Abruf aller vorhandenen Bewertungen. Wird für das "Rating" Fragment benötigt um die Bewertungsergebnisse anzuzeigen.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+    })
+    @GET("/classes/Bewertung")
+    Call<JSONBewertungResponse> getBewertung();
+
     //Abruf aller vorhandenen Brettspiele. Wird für das "Games" Fragment benötigt.
     @Headers({
             "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",

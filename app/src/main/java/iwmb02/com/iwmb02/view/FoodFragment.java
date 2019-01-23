@@ -35,11 +35,11 @@ public class FoodFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_games, container, false);
+        View v =  inflater.inflate(R.layout.fragment_food, container, false);
         tvDate = v.findViewById(R.id.tvDate);
         ibLeft = v.findViewById(R.id.ibLeft);
         ibRight = v.findViewById(R.id.ibRight);
-        btnSaveChoice = v.findViewById(R.id.btnSaveGame);
+        btnSaveChoice = v.findViewById(R.id.btnSaveFood);
         tvScore = v.findViewById(R.id.tvScore);
 
         buildEventNav();
@@ -106,7 +106,7 @@ public class FoodFragment extends Fragment {
                             Essensrichtung[] essensrichtungen = resp.getResults();
                             //Essensrichtungen Array wird durchgelaufen und alle Essensrichtungen werden der Liste hinzugefügt damit sie im Spinner angezeigt werden können
                             for (int i = 0; i < essensrichtungen.length; i++) {
-                                list.add(essensrichtungen[i].getUrl());
+                                list.add(essensrichtungen[i].getStyle());
                             }
                             //Da die DB Abfrage asynchron ist, darf der ArrayAdapter nur nach der erfolgreichen Abfrage mit der Brettspielliste geladen werden.
                             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
@@ -216,7 +216,7 @@ public class FoodFragment extends Fragment {
     }
 
     public void setListener() {
-        btnSaveChoice.setOnClickListener(new View.OnClickListener() { //Beim einem Click auf den Button wird überprüft, ob sich der User für das ausgewählte Spieltermin angemeldet hat. Gegebenenfalls wird sein Brettspielwahl in der DB gespeichert.
+        btnSaveChoice.setOnClickListener(new View.OnClickListener() { //Beim einem Click auf den Button wird überprüft, ob sich der User für das ausgewählte Spieltermin angemeldet hat. Gegebenenfalls wird seine Essenswahl in der DB gespeichert.
             @Override
             public void onClick(View v) {
                 boolean checkJoined = false;

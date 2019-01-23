@@ -24,7 +24,7 @@ public class RatingsFragment extends Fragment {
     private ArrayList<Spieltermin> spieltermine = Globals.getInstance().getSpieltermine(); //Die in der MainActivity abgefragte Lsite aller Spieltermine wird aus den globalen Variablen geladen.
     //Hier kann das Format des anzeigten Datums angepasst werden
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
-    private TextView tvDate;
+    private TextView tvDate, tvScoreHost, tvScoreGames, tvScoreFood, tvScoreEvening;
     private ImageButton ibLeft, ibRight;
     private RatingBar rbHost, rbGames, rbFood, rbEvent;
     private int hostRating, gamesRating, foodRating, eventRating;
@@ -47,6 +47,13 @@ public class RatingsFragment extends Fragment {
         rbEvent = v.findViewById(R.id.rbEvent);
 
         buildRatingBars();
+
+        tvScoreHost = v.findViewById(R.id.tvScoreHost);
+        tvScoreGames = v.findViewById(R.id.tvScoreGame);
+        tvScoreFood = v.findViewById(R.id.tvScoreFood);
+        tvScoreEvening = v.findViewById(R.id.tvScoreEvening);
+
+        checkScore();
 
         bntFeedback = v.findViewById(R.id.btFeedback);
         bntFeedback.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +135,54 @@ public class RatingsFragment extends Fragment {
         return v;
     }
 
+    public void checkScore() {
+        NetworkService.getInstance()
+                .getRestApiClient()
+                .getBewertung()
+                .enqueue(new Callback<JSONBewertungResponse>() {
+                    @Override
+                    public void onResponse(Call<JSONBewertungResponse> call, Response<JSONBewertungResponse> response) {
+                        if(response.isSuccessful()) {
+                            JSONBewertungResponse resp = response.body();
+                            Bewertung[] bewertungen = resp.getResults();
+                            float scoreH = 0, scoreG = 0, scoreE = 0, scoreF = 0;
+                            int count = 0; //Anzahl der Bewertungen eines Spieltermins
+                            for(int i=0; i < bewertungen.length; i++) {
+                                if(spieltermine.get(counter).getObjectId().equals(bewertungen[i].getSpielterminId().getObjectId())) { //es werden nur die Bewertungen des ausgewählten Spieltermins ausgewertet
+                                    scoreH = scoreH + bewertungen[i].getHostRating();
+                                    scoreG = scoreG + bewertungen[i].getGamesRating();
+                                    scoreF = scoreF + bewertungen[i].getFoodRating();
+                                    scoreE = scoreE + bewertungen[i].getEventRating();
+                                    count++;
+                                }
+                            }
+                            if(scoreH > 0) { // Es reicht aus einen Wert zu überprüfen, denn Ratings werden immer insgesamt in der DB gespeichert
+                                tvScoreHost.setText("Score: " + (scoreH / count) + " ( " + count + " votes)");
+                                tvScoreGames.setText("Score: " + (scoreG / count) + " ( " + count + " votes)");
+                                tvScoreEvening.setText("Score: " + (scoreE / count) + " ( " + count + " votes)");
+                                tvScoreFood.setText("Score: " + (scoreF / count) + " ( " + count + " votes)");
+                            } else {
+                                tvScoreHost.setText("Score: no votes yet"); //Reset des Textes falls noch keine Ratings vorhanden sind
+                                tvScoreGames.setText("Score: no votes yet");
+                                tvScoreEvening.setText("Score: no votes yet");
+                                tvScoreFood.setText("Score: no votes yet");
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), "Error: something went wrong", Toast.LENGTH_SHORT ).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONBewertungResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
+                    }
+                });
+
+
+
+    }
+
     public void buildEventNav() {
         //Counter fängt bei "0" an, deswegen wird das älteste Datum angezeigt
         String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getIso());
@@ -142,6 +197,7 @@ public class RatingsFragment extends Fragment {
                     counter--;
                     String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getIso());
                     tvDate.setText(strDate);
+                    checkScore();
                 }
             }
 
@@ -157,6 +213,7 @@ public class RatingsFragment extends Fragment {
                     counter++;
                     String strDate = dateFormat.format(spieltermine.get(counter).getEventDate().getIso());
                     tvDate.setText(strDate);
+                    checkScore();
                 }
             }
 

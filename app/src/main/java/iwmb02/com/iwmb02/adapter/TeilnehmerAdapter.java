@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.Spieltermin;
+import iwmb02.com.iwmb02.models.Teilnehmer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class SpielterminAdapter extends RecyclerView.Adapter<SpielterminAdapter.SpielterminViewHolder>{
+public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.SpielterminViewHolder>{
 
-    private ArrayList<Spieltermin> spielterminList;
+    private ArrayList<Teilnehmer> teilnehmerList;
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
 
 
-    public SpielterminAdapter(ArrayList<Spieltermin> spielterminList) {
-        this.spielterminList = spielterminList;
+    public TeilnehmerAdapter(ArrayList<Teilnehmer> spielterminList) {
+        this.teilnehmerList = spielterminList;
     }
 
     @NonNull
@@ -37,15 +38,21 @@ public class SpielterminAdapter extends RecyclerView.Adapter<SpielterminAdapter.
     public void onBindViewHolder(@NonNull SpielterminViewHolder holder, int position) {
 
 
-        holder.eventSpielterminTextView.setText(spielterminList.get(position).getEventDate().gettransformdate());
-        holder.eventFoodSupplierTextView.setText(spielterminList.get(position).getFoodSupplier());
-
-
+        holder.eventSpielterminTextView.setText(teilnehmerList.get(position).getSpielterminId().getEventDate().gettransformdate());
+        holder.eventFoodSupplierTextView.setText("Participants: " +teilnehmerList.get(position).getUserId().getVorname());
+        if(teilnehmerList.get(position).getSpielterminId().getFoodSupplier() != null) {
+            holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
+            holder.eventFoodSupplierTextView.append("Food Supplier: " + teilnehmerList.get(position).getSpielterminId().getFoodSupplier());
+        }
+        if(teilnehmerList.get(position).getSpielterminId().getGame() != null) {
+            holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
+            holder.eventFoodSupplierTextView.append("Game(s): " + teilnehmerList.get(position).getSpielterminId().getGame());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return spielterminList.size();
+        return teilnehmerList.size();
     }
 
     class SpielterminViewHolder extends RecyclerView.ViewHolder {
