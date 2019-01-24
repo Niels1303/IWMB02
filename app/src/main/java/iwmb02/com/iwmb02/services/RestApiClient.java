@@ -100,6 +100,24 @@ public interface RestApiClient {
     @GET("/classes/Spieltermin")
     Call<JSONgetSpielterminResponse> getSpieltermin();
 
+    //Fügt ein neues Spieltermin hinzu. Wird von der Activity "AddEvent" verwendet.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @POST("/classes/Spieltermin")
+    Call<JSONgetSpielterminResponse> createSpieltermin(@Body Spieltermin spieltermin);
+
+    //Fügt einen neuen Teilnehmer hinzu. Wir von der AddEvent Activity benötigt.
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @POST("/classes/Teilnehmer")
+    Call<GetTeilnehmerResponse> createTeilnehmer(@Body Teilnehmer teilnehmer);
+
     //Änderung der Attribute eines Teilnehmers. Wird vom Fragment "Games" verwendet um die Auswahl eines Brettspiels zu speichern
     @Headers({
             "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",

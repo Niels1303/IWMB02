@@ -15,7 +15,7 @@ public class EventDate {
     @Expose
     public Date iso;
 
-    public DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
+    public transient DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
 
     public String getType() {
         return type;
@@ -35,7 +35,7 @@ public class EventDate {
 
     public String gettransformdate(){
 
-        String strDate = dateFormat.format(getIso());
+        String  strDate = dateFormat.format(getIso());
         return strDate;
     }
 }

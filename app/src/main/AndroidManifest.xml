@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".view.Profile">
         </activity>
+        <activity android:name=".view.AddEvent">
+        </activity>
     </application>
 
 </manifest>
