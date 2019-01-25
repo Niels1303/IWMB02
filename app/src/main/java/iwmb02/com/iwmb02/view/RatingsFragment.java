@@ -67,11 +67,11 @@ public class RatingsFragment extends Fragment {
                 NetworkService.getInstance()
                         .getRestApiClient()
                         .checkBewertung(data)
-                        .enqueue(new Callback<JSONBewertungResponse>() {
+                        .enqueue(new Callback<BewertungResponse>() {
                             @Override
-                            public void onResponse(Call<JSONBewertungResponse> call, Response<JSONBewertungResponse> response) {
+                            public void onResponse(Call<BewertungResponse> call, Response<BewertungResponse> response) {
                                 if(response.isSuccessful()) {
-                                    JSONBewertungResponse resp = response.body();
+                                    BewertungResponse resp = response.body();
                                     //Falls ein Datensatz zurückgegeben wird, bedeutet es, dass der User bereits dieses Event bewertet hat.
                                     if(resp.getResults().length != 0) {
                                         Toast.makeText(getActivity(),"You have already rated this event!",Toast.LENGTH_SHORT).show();
@@ -98,9 +98,9 @@ public class RatingsFragment extends Fragment {
                                         NetworkService.getInstance()
                                                 .getRestApiClient()
                                                 .setBewertung(bewertung)
-                                                .enqueue(new Callback<JSONBewertungResponse>() {
+                                                .enqueue(new Callback<BewertungResponse>() {
                                                     @Override
-                                                    public void onResponse(Call<JSONBewertungResponse> call, Response<JSONBewertungResponse> response) {
+                                                    public void onResponse(Call<BewertungResponse> call, Response<BewertungResponse> response) {
                                                         if(response.isSuccessful()) {
                                                             Toast.makeText(getActivity(),"Ratings sent",Toast.LENGTH_SHORT).show();
                                                         }else {
@@ -109,7 +109,7 @@ public class RatingsFragment extends Fragment {
                                                     }
 
                                                     @Override
-                                                    public void onFailure(Call<JSONBewertungResponse> call, Throwable t) {
+                                                    public void onFailure(Call<BewertungResponse> call, Throwable t) {
                                                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
                                                     }
                                                 });
@@ -119,7 +119,7 @@ public class RatingsFragment extends Fragment {
                             }
 
                             @Override
-                            public void onFailure(Call<JSONBewertungResponse> call, Throwable t) {
+                            public void onFailure(Call<BewertungResponse> call, Throwable t) {
                                 Toast.makeText( getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
                             }
                         });
@@ -139,11 +139,11 @@ public class RatingsFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .getBewertung()
-                .enqueue(new Callback<JSONBewertungResponse>() {
+                .enqueue(new Callback<BewertungResponse>() {
                     @Override
-                    public void onResponse(Call<JSONBewertungResponse> call, Response<JSONBewertungResponse> response) {
+                    public void onResponse(Call<BewertungResponse> call, Response<BewertungResponse> response) {
                         if(response.isSuccessful()) {
-                            JSONBewertungResponse resp = response.body();
+                            BewertungResponse resp = response.body();
                             Bewertung[] bewertungen = resp.getResults();
                             float scoreH = 0, scoreG = 0, scoreE = 0, scoreF = 0;
                             int count = 0; //Anzahl der Bewertungen eines Spieltermins
@@ -174,7 +174,7 @@ public class RatingsFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<JSONBewertungResponse> call, Throwable t) {
+                    public void onFailure(Call<BewertungResponse> call, Throwable t) {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
                     }
                 });

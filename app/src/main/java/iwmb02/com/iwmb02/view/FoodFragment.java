@@ -98,11 +98,11 @@ public class FoodFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .getEssensrichtung()
-                .enqueue(new Callback<GetEssensrichtungResponse>() {
+                .enqueue(new Callback<EssensrichtungResponse>() {
                     @Override
-                    public void onResponse(Call<GetEssensrichtungResponse> call, Response<GetEssensrichtungResponse> response) {
+                    public void onResponse(Call<EssensrichtungResponse> call, Response<EssensrichtungResponse> response) {
                         if(response.isSuccessful()) {
-                            GetEssensrichtungResponse resp = response.body();
+                            EssensrichtungResponse resp = response.body();
                             Essensrichtung[] essensrichtungen = resp.getResults();
                             //Essensrichtungen Array wird durchgelaufen und alle Essensrichtungen werden der Liste hinzugefügt damit sie im Spinner angezeigt werden können
                             for (int i = 0; i < essensrichtungen.length; i++) {
@@ -132,7 +132,7 @@ public class FoodFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<GetEssensrichtungResponse> call, Throwable t) {
+                    public void onFailure(Call<EssensrichtungResponse> call, Throwable t) {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
                     }
                 });
@@ -145,11 +145,11 @@ public class FoodFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .getTeilnehmer(data)
-                .enqueue(new Callback<GetTeilnehmerResponse>() {
+                .enqueue(new Callback<TeilnehmerResponse>() {
                     @Override
-                    public void onResponse(Call<GetTeilnehmerResponse> call, Response<GetTeilnehmerResponse> response) {
+                    public void onResponse(Call<TeilnehmerResponse> call, Response<TeilnehmerResponse> response) {
                         if (response.isSuccessful()) {
-                            GetTeilnehmerResponse resp = response.body();
+                            TeilnehmerResponse resp = response.body();
                             teilnehmer = resp.getResults();
                             if(teilnehmer != null){
                                 checkScore();
@@ -161,7 +161,7 @@ public class FoodFragment extends Fragment {
 
 
                     @Override
-                    public void onFailure(Call<GetTeilnehmerResponse> call, Throwable t) {
+                    public void onFailure(Call<TeilnehmerResponse> call, Throwable t) {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

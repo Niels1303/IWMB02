@@ -3,16 +3,16 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetEssensrichtungResponse {
+public class BewertungResponse {
     @SerializedName("results")
     @Expose
-    private Essensrichtung[] results;
+    private Bewertung[] results;
 
-    public Essensrichtung[] getResults() {
+    public Bewertung[] getResults() {
         return results;
     }
 
-    public void setResults(Essensrichtung[] results) {
+    public void setResults(Bewertung[] results) {
         this.results = results;
     }
 }

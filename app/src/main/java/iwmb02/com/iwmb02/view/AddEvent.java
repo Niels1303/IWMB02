@@ -143,9 +143,9 @@ public class AddEvent extends AppCompatActivity {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .createTeilnehmer(teilnehmer)
-                .enqueue(new Callback<GetTeilnehmerResponse>() {
+                .enqueue(new Callback<TeilnehmerResponse>() {
                     @Override
-                    public void onResponse(Call<GetTeilnehmerResponse> call, Response<GetTeilnehmerResponse> response) {
+                    public void onResponse(Call<TeilnehmerResponse> call, Response<TeilnehmerResponse> response) {
                         if(response.isSuccessful()) {
                             Toast.makeText(AddEvent.this,"You have been added as host",Toast.LENGTH_SHORT).show();
                         } else {
@@ -154,7 +154,7 @@ public class AddEvent extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<GetTeilnehmerResponse> call, Throwable t) {
+                    public void onFailure(Call<TeilnehmerResponse> call, Throwable t) {
                         Toast.makeText(AddEvent.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

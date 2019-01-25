@@ -4,7 +4,7 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSONNachrichtResponse {
+public class NachrichtResponse {
     @SerializedName("results")
     @Expose
     private Nachricht[] results;

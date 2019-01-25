@@ -49,7 +49,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/Nachricht")
-    Call<JSONNachrichtResponse> refreshMessages();
+    Call<NachrichtResponse> refreshMessages();
 
     //Mit getTeilnehmer werden alle Spieltermine inklusive aller Teilnehmer abgerufen
     @Headers({
@@ -57,7 +57,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/Teilnehmer")
-    Call<GetTeilnehmerResponse> getTeilnehmer(@QueryMap(encoded=true) Map<String, String> options);
+    Call<TeilnehmerResponse> getTeilnehmer(@QueryMap(encoded=true) Map<String, String> options);
 
     //Mit diesem Query wird überprüpft ob der eingelogte User für ein bestimmtes Spielevent bereits seine Bewertungen abgegeben hat.
     @Headers({
@@ -65,7 +65,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/Bewertung")
-    Call<JSONBewertungResponse> checkBewertung(@QueryMap(encoded=true) Map<String, String> options);
+    Call<BewertungResponse> checkBewertung(@QueryMap(encoded=true) Map<String, String> options);
 
     //Hier wird eine neue Bewertung eingetragen
     @Headers({
@@ -74,7 +74,7 @@ public interface RestApiClient {
             "Content-Type: application/json"
     })
     @POST("/classes/Bewertung")
-    Call<JSONBewertungResponse> setBewertung(@Body Bewertung bewertung);
+    Call<BewertungResponse> setBewertung(@Body Bewertung bewertung);
 
     //Abruf aller vorhandenen Bewertungen. Wird für das "Rating" Fragment benötigt um die Bewertungsergebnisse anzuzeigen.
     @Headers({
@@ -82,7 +82,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
     })
     @GET("/classes/Bewertung")
-    Call<JSONBewertungResponse> getBewertung();
+    Call<BewertungResponse> getBewertung();
 
     //Abruf aller vorhandenen Brettspiele. Wird für das "Games" Fragment benötigt.
     @Headers({
@@ -90,7 +90,7 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
     })
     @GET("/classes/Brettspiel")
-    Call<JSONgetBrettspielResponse> getBrettspiel();
+    Call<BrettspielResponse> getBrettspiel();
 
     //Abruf aller vorhandenen Spieltermine. Wird für das Navigieren zwischen den Terminen in den Fragmenten benötigt.
     @Headers({
@@ -116,7 +116,7 @@ public interface RestApiClient {
             "Content-Type: application/json"
     })
     @POST("/classes/Teilnehmer")
-    Call<GetTeilnehmerResponse> createTeilnehmer(@Body Teilnehmer teilnehmer);
+    Call<TeilnehmerResponse> createTeilnehmer(@Body Teilnehmer teilnehmer);
 
     //Änderung der Attribute eines Teilnehmers. Wird vom Fragment "Games" verwendet um die Auswahl eines Brettspiels zu speichern
     @Headers({
@@ -133,6 +133,6 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
     })
     @GET("/classes/Essensrichtung")
-    Call<GetEssensrichtungResponse> getEssensrichtung();
+    Call<EssensrichtungResponse> getEssensrichtung();
 
 }

@@ -99,11 +99,11 @@ public class GamesFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .getBrettspiel()
-                .enqueue(new Callback<JSONgetBrettspielResponse>() {
+                .enqueue(new Callback<BrettspielResponse>() {
                     @Override
-                    public void onResponse(Call<JSONgetBrettspielResponse> call, Response<JSONgetBrettspielResponse> response) {
+                    public void onResponse(Call<BrettspielResponse> call, Response<BrettspielResponse> response) {
                         if(response.isSuccessful()) {
-                            JSONgetBrettspielResponse resp = response.body();
+                            BrettspielResponse resp = response.body();
                             Brettspiel[] brettspiele = resp.getResults();
                             //Brettspiele Array wird durchgelaufen und alle Brettspielnamen werden der Liste hinzugefügt
                             for (int i = 0; i < brettspiele.length; i++) {
@@ -133,7 +133,7 @@ public class GamesFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<JSONgetBrettspielResponse> call, Throwable t) {
+                    public void onFailure(Call<BrettspielResponse> call, Throwable t) {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
                     }
                 });
@@ -146,11 +146,11 @@ public class GamesFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .getTeilnehmer(data)
-                .enqueue(new Callback<GetTeilnehmerResponse>() {
+                .enqueue(new Callback<TeilnehmerResponse>() {
                     @Override
-                    public void onResponse(Call<GetTeilnehmerResponse> call, Response<GetTeilnehmerResponse> response) {
+                    public void onResponse(Call<TeilnehmerResponse> call, Response<TeilnehmerResponse> response) {
                         if (response.isSuccessful()) {
-                            GetTeilnehmerResponse resp = response.body();
+                            TeilnehmerResponse resp = response.body();
                             teilnehmer = resp.getResults();
                             if(teilnehmer != null){
                                 checkScore();
@@ -162,7 +162,7 @@ public class GamesFragment extends Fragment {
 
 
                     @Override
-                    public void onFailure(Call<GetTeilnehmerResponse> call, Throwable t) {
+                    public void onFailure(Call<TeilnehmerResponse> call, Throwable t) {
                         Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

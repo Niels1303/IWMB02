@@ -3,19 +3,16 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class JSONSpielterminResponse {
+public class EssensrichtungResponse {
     @SerializedName("results")
     @Expose
-    private List<Spieltermin> results = null;
+    private Essensrichtung[] results;
 
-    public List<Spieltermin> getResults() {
+    public Essensrichtung[] getResults() {
         return results;
-    };
+    }
 
-    public void setResults(List<Spieltermin> results) {
+    public void setResults(Essensrichtung[] results) {
         this.results = results;
-    };
+    }
 }
-

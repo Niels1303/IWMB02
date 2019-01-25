@@ -15,7 +15,7 @@ import android.widget.Toast;
 import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.adapter.MessageListAdapter;
 import iwmb02.com.iwmb02.models.Globals;
-import iwmb02.com.iwmb02.models.JSONNachrichtResponse;
+import iwmb02.com.iwmb02.models.NachrichtResponse;
 import iwmb02.com.iwmb02.models.Nachricht;
 import iwmb02.com.iwmb02.services.NetworkService;
 import retrofit2.Call;
@@ -99,12 +99,12 @@ public class ChatFragment extends Fragment {
         NetworkService.getInstance()
                 .getRestApiClient()
                 .refreshMessages()
-                .enqueue(new Callback<JSONNachrichtResponse>() {
+                .enqueue(new Callback<NachrichtResponse>() {
                     @Override
-                    public void onResponse(Call<JSONNachrichtResponse> call, Response<JSONNachrichtResponse> response) {
+                    public void onResponse(Call<NachrichtResponse> call, Response<NachrichtResponse> response) {
                         if(response.isSuccessful()) {
-                            JSONNachrichtResponse jsonNachrichtResponse = response.body();
-                            data = new ArrayList<>(Arrays.asList(jsonNachrichtResponse.getResults())); //Die Rückgabe wird als ArrayList konvertiert.
+                            NachrichtResponse nachrichtResponse = response.body();
+                            data = new ArrayList<>(Arrays.asList(nachrichtResponse.getResults())); //Die Rückgabe wird als ArrayList konvertiert.
                             if(messageList != null) { //Falls messageList nicht leer ist wird diese Liste gelöscht, da alle Chatnachrichten neu geladen werden.
                                 messageList.clear();
                             }
@@ -117,7 +117,7 @@ public class ChatFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<JSONNachrichtResponse> call, Throwable t) {
+                    public void onFailure(Call<NachrichtResponse> call, Throwable t) {
                         Toast.makeText(getActivity(),"Error: " + t.getMessage() , Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -3,12 +3,18 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSONgetBrettspielResponse {
+public class TeilnehmerResponse {
     @SerializedName("results")
     @Expose
-    private Brettspiel[] results;
+    private Teilnehmer[] results;
 
-    public Brettspiel[] getResults() {
+    public Teilnehmer[] getResults() {
         return results;
     }
+
+    public void setResults(Teilnehmer[] results) {
+        this.results = results;
+    }
+
+
 }

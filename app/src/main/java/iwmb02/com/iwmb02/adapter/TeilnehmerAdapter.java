@@ -12,16 +12,16 @@ import iwmb02.com.iwmb02.models.Teilnehmer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.*;
 
 public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.SpielterminViewHolder>{
 
-    private ArrayList<Teilnehmer> teilnehmerList;
+    private Map<Date,ArrayList<Teilnehmer>> map;
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
 
 
-    public TeilnehmerAdapter(ArrayList<Teilnehmer> spielterminList) {
-        this.teilnehmerList = spielterminList;
+    public TeilnehmerAdapter(Map<Date,ArrayList<Teilnehmer>> map) {
+        this.map = map;
     }
 
     @NonNull
@@ -37,22 +37,39 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
     @Override
     public void onBindViewHolder(@NonNull SpielterminViewHolder holder, int position) {
 
+        //Damit die Liste über ein Index gesucht werden kann, muss die Objektreferenz zuerst in ein ArrayList kopiert werden.
+        ArrayList<Map.Entry<Date,ArrayList<Teilnehmer>>> indexedList = new ArrayList<>(map.entrySet());
+        Map.Entry<Date,ArrayList<Teilnehmer>> entry = indexedList.get(position);
 
-        holder.eventSpielterminTextView.setText(teilnehmerList.get(position).getSpielterminId().getEventDate().gettransformdate());
-        holder.eventFoodSupplierTextView.setText("Participants: " +teilnehmerList.get(position).getUserId().getVorname());
-        if(teilnehmerList.get(position).getSpielterminId().getFoodSupplier() != null) {
-            holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
-            holder.eventFoodSupplierTextView.append("Food Supplier: " + teilnehmerList.get(position).getSpielterminId().getFoodSupplier());
+        String  strDate = dateFormat.format(entry.getKey());
+        holder.eventSpielterminTextView.setText(strDate);
+        holder.eventFoodSupplierTextView.setText("Participants: ");
+
+        ArrayList<Teilnehmer> teilnehmer = entry.getValue();
+        for(int i=0; i < teilnehmer.size(); i++) {
+            holder.eventFoodSupplierTextView.append(teilnehmer.get(i).getUserId().getVorname());
+            if(teilnehmer.get(i).isAusrichter()) {
+                holder.eventFoodSupplierTextView.append(" (host)");
+            }
+            if(i < teilnehmer.size()-1) {
+                holder.eventFoodSupplierTextView.append(", "); //Nach dem letzten Teilnehmer sollte kein Komma gesetzt werden.
+            }
+
         }
-        if(teilnehmerList.get(position).getSpielterminId().getGame() != null) {
+        if(teilnehmer.get(0).getSpielterminId().getFoodSupplier() != null) {
             holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
-            holder.eventFoodSupplierTextView.append("Game(s): " + teilnehmerList.get(position).getSpielterminId().getGame());
+            holder.eventFoodSupplierTextView.append("Food Supplier: " + teilnehmer.get(0).getSpielterminId().getFoodSupplier()); //Alle Teilnehmer in der ArrayListe zeigen auf das selbe Spieltermin. Also kann auch das erste Element in der ArrayList verwendet werden.
         }
+        if(teilnehmer.get(0).getSpielterminId().getGame() != null) {
+            holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
+            holder.eventFoodSupplierTextView.append("Game(s): " + teilnehmer.get(0).getSpielterminId().getGame());
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return teilnehmerList.size();
+        return map.size();
     }
 
     class SpielterminViewHolder extends RecyclerView.ViewHolder {

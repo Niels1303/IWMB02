@@ -3,18 +3,19 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetTeilnehmerResponse {
+import java.util.List;
+
+public class SpielterminResponse {
     @SerializedName("results")
     @Expose
-    private Teilnehmer[] results;
+    private List<Spieltermin> results = null;
 
-    public Teilnehmer[] getResults() {
+    public List<Spieltermin> getResults() {
         return results;
-    }
+    };
 
-    public void setResults(Teilnehmer[] results) {
+    public void setResults(List<Spieltermin> results) {
         this.results = results;
-    }
-
-
+    };
 }
+
