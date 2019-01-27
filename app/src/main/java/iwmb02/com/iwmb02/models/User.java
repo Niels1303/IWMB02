@@ -46,6 +46,9 @@ public class User {
     @SerializedName("className")
     @Expose
     private String className;
+    @SerializedName("teilnehmerCounter")
+    @Expose
+    private Integer teilnehmerCounter;
 
 
     public String getObjectId() {
@@ -144,7 +147,11 @@ public class User {
         this.className = className;
     }
 
-    public void appendVorname(String vorname) {
-        this.vorname = this.vorname + vorname;
+    public Integer getTeilnehmerCounter() {
+        return teilnehmerCounter;
+    }
+
+    public void setTeilnehmerCounter(Integer teilnehmerCounter) {
+        this.teilnehmerCounter = teilnehmerCounter;
     }
 }

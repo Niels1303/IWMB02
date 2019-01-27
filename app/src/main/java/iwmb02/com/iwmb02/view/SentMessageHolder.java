@@ -13,8 +13,8 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
 
     SentMessageHolder(View itemView) {
         super(itemView);
-        messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-        timeText = (TextView) itemView.findViewById(R.id.text_message_time);
+        messageText = itemView.findViewById(R.id.text_message_body);
+        timeText = itemView.findViewById(R.id.text_message_time);
     }
 
     void bind(Nachricht message) {

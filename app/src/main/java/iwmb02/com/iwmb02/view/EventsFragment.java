@@ -21,13 +21,12 @@ import retrofit2.Response;
 
 import java.util.*;
 
-public class EventsFragment extends Fragment {
+public class EventsFragment extends Fragment implements TeilnehmerAdapter.OnItemListener {
 
     private ArrayList<Teilnehmer> list = new ArrayList<Teilnehmer>();
     private TeilnehmerAdapter teilnehmerAdapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addEvent;
-
 
     @Nullable
     @Override
@@ -64,31 +63,16 @@ public class EventsFragment extends Fragment {
                                 Date TreeMapKey = teilnehmer[i].getSpielterminId().getEventDate().getIso();
                                 if(map.containsKey(TreeMapKey)) { //hier wird überprüft, ob bereits ein Key mit dem Evendatum in "map" vorhanden ist.
                                     map.get(TreeMapKey).add(teilnehmer[i]); //in diesem Fall wird der aktuelle Teilnehmer dem "Value" hinzugefügt
-
-                                    //List<Teilnehmer> tnmr = map.get(teilnehmer[i].getSpielterminId().getEventDate().getIso()); //übernimmt die bestehende Teilnehmer des entsprechenden Eventdatums.
-                                    //tnmr.add(teilnehmer[i]); //Fügt der ArrayList das aktuelle Teilnehmerobjekt hinzu.
-                                    //map.put(teilnehmer[i].getSpielterminId().getEventDate().getIso(),tnmr); //Speichert die aktuallisierte ArrayList als Value in der HashMap
                                 } else {
                                     ArrayList<Teilnehmer> tnmr = new ArrayList<>(); //Falls noch kein entsprechendes Key vorhanden ist, wird ein neues Key mit dem aktuellen Teilnehmerobjekt erstellt.
                                     tnmr.add(teilnehmer[i]);
                                     map.put(TreeMapKey,tnmr);
-
-                                    //ArrayList<Teilnehmer> tnmr = new ArrayList<Teilnehmer>();
-                                    //tnmr.add(teilnehmer[i]);
-                                    //map.put(teilnehmer[i].getSpielterminId().getEventDate().getIso(),tnmr); //Falls noch kein entsprechendes Key vorhanden ist, wird ein neues Key mit dem aktuellen Teilnehmerobjekt erstellt.
                                 }
-
                             }
-
-
-
-
                             viewData(map);
-
                         } else {
                             Toast.makeText(getActivity(), "Error: something went wrong", Toast.LENGTH_SHORT ).show();
                         }
-
                     }
 
                     @Override
@@ -99,9 +83,15 @@ public class EventsFragment extends Fragment {
     }
 
     private void viewData(Map<Date,ArrayList<Teilnehmer>> map) {
-        teilnehmerAdapter =new TeilnehmerAdapter(map);
+        teilnehmerAdapter =new TeilnehmerAdapter(map, this);
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(teilnehmerAdapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getActivity(), EditEvent.class);
+        startActivity(intent);
     }
 }

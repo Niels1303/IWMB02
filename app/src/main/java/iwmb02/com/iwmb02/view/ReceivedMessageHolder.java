@@ -13,9 +13,9 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
 
     ReceivedMessageHolder(View itemView) {
         super(itemView);
-        messageText = (TextView) itemView.findViewById(R.id.text_message_body);
-        timeText = (TextView) itemView.findViewById(R.id.text_message_time);
-        nameText = (TextView) itemView.findViewById(R.id.text_message_name);
+        messageText = itemView.findViewById(R.id.text_message_body);
+        timeText = itemView.findViewById(R.id.text_message_time);
+        nameText = itemView.findViewById(R.id.text_message_name);
     }
 
     void bind(Nachricht message) {

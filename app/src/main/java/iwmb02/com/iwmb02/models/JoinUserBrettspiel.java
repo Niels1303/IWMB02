@@ -3,7 +3,7 @@ package iwmb02.com.iwmb02.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GameResponse {
+public class JoinUserBrettspiel {
 
     @SerializedName("objectId")
     @Expose
@@ -11,6 +11,9 @@ public class GameResponse {
     @SerializedName("brettspiel")
     @Expose
     private Brettspiel brettspiel;
+    @SerializedName("user")
+    @Expose
+    private User user;
 
 
     public String getObjectId() {
@@ -27,5 +30,13 @@ public class GameResponse {
 
     public void setBrettspiel(Brettspiel brettspiel) {
         this.brettspiel = brettspiel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

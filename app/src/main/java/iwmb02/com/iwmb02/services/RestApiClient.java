@@ -22,7 +22,15 @@ public interface RestApiClient {
             "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb"
     })
     @GET("/classes/joinUserBrettspiel")
-    Call<JSONGameResponse> getGames(@QueryMap(encoded=true) Map<String, String> options);
+    Call<JoinUserBrettspielResponse> getGames(@QueryMap(encoded=true) Map<String, String> options);
+
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @POST("/classes/joinUserBrettspiel")
+    Call<JoinUserBrettspiel> createUserBrettspiel(@Body JoinUserBrettspiel joinUserBrettspiel);
 
     // "@Field" entspricht dem "key" und das dahinter stehende Object beinhaltet den Wert
     @Headers({
@@ -91,6 +99,14 @@ public interface RestApiClient {
     })
     @GET("/classes/Brettspiel")
     Call<BrettspielResponse> getBrettspiel();
+
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @POST("/classes/Brettspiel")
+    Call<Brettspiel> createBrettspiel(@Body Brettspiel brettspiel);
 
     //Abruf aller vorhandenen Spieltermine. Wird für das Navigieren zwischen den Terminen in den Fragmenten benötigt.
     @Headers({

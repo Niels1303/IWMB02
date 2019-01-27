@@ -94,7 +94,7 @@ public class GamesFragment extends Fragment {
 
     //Liste aller vorhandenen Brettspiele werden dynamisch dem Spinner hinzugefügt
     public void addItemsOnSpinner(View v) {
-        spinner1 = (Spinner) v.findViewById(R.id.spinner1);
+        spinner1 = v.findViewById(R.id.spinner1);
         //Die Liste aller vorhandenen Brettspiele wird aus der DB abgefragt damit sie später im Dropdownmenü angezeigt werden kann.
         NetworkService.getInstance()
                 .getRestApiClient()

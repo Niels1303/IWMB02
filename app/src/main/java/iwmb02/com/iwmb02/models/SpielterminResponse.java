@@ -12,10 +12,10 @@ public class SpielterminResponse {
 
     public List<Spieltermin> getResults() {
         return results;
-    };
+    }
 
     public void setResults(List<Spieltermin> results) {
         this.results = results;
-    };
+    }
 }
 

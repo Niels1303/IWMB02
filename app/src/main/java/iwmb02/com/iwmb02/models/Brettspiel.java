@@ -11,9 +11,12 @@ public class Brettspiel {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("playersNumber")
+    @SerializedName("__type")
     @Expose
-    private String playersNumber;
+    private String type;
+    @SerializedName("className")
+    @Expose
+    private String className;
 
     public String getObjectId() {
         return objectId;
@@ -31,11 +34,19 @@ public class Brettspiel {
         this.name = name;
     }
 
-    public String getPlayersNumber() {
-        return playersNumber;
+    public String getType() {
+        return type;
     }
 
-    public void setPlayersNumber(String playersNumber) {
-        this.playersNumber = playersNumber;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

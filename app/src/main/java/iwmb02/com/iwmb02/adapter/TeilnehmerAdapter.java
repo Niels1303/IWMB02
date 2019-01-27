@@ -18,10 +18,11 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
 
     private Map<Date,ArrayList<Teilnehmer>> map;
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
+    private OnItemListener mOnItemListener;
 
-
-    public TeilnehmerAdapter(Map<Date,ArrayList<Teilnehmer>> map) {
+    public TeilnehmerAdapter(Map<Date,ArrayList<Teilnehmer>> map,OnItemListener onItemListener) {
         this.map = map;
+        this.mOnItemListener = onItemListener;
     }
 
     @NonNull
@@ -31,7 +32,7 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
         LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
         View view=layoutInflater.inflate(R.layout.fragment_events_row,parent, false );
 
-        return new SpielterminViewHolder(view);
+        return new SpielterminViewHolder(view, mOnItemListener);
     }
 
     @Override
@@ -72,18 +73,32 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
         return map.size();
     }
 
-    class SpielterminViewHolder extends RecyclerView.ViewHolder {
+
+    class SpielterminViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView eventFoodSupplierTextView;
         TextView eventSpielterminTextView;
+        OnItemListener onItemListener;
 
-        public SpielterminViewHolder(@NonNull View itemView) {
+        public SpielterminViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
             super(itemView);
-
             eventSpielterminTextView=itemView.findViewById(R.id.tv_eventdate);
             eventFoodSupplierTextView=itemView.findViewById(R.id.tv_foodsupplier);
+            this.onItemListener = onItemListener;
+
+            itemView.setOnClickListener(this);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemListener.onItemClick(getAdapterPosition());
+
+        }
+    }
+
+    public interface OnItemListener {
+        void onItemClick(int position);
     }
 
 }

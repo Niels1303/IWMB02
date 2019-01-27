@@ -39,7 +39,7 @@ public class ChatFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         // Bei fragments kann der Context über den inflater erfragt werden
-        MessageRecycler = (RecyclerView) v.findViewById(R.id.rvChat);
+        MessageRecycler = v.findViewById(R.id.rvChat);
         MessageAdapter = new MessageListAdapter(getContext(), messageList);
         MessageRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         MessageRecycler.setAdapter(MessageAdapter);
