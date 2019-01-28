@@ -121,11 +121,10 @@ public class AddEvent extends AppCompatActivity {
                             user.setType("Pointer");
                             user.setClassName("_User");
                             user.setObjectId(Globals.getInstance().getUserId()); //ObjectId des eingelogten Benutzers
+                            spieltermin.setAusrichter(user); //Der User der das Event angelegt hat wird gleich auch als Spielausrichter eingesetzt.
                             Teilnehmer tnr = new Teilnehmer(); //Nachdem ein neues Spieltermin angelegt wurde, soll auch gleich der User als Teilnehmer angelegt werden werden.
                             tnr.setSpielterminId(spieltermin);
                             tnr.setUserId(user);
-                            tnr.setAusrichter(true); //Der User der das Event anlegt wird gleich auch als Ausrichter gesetzt.
-                            addHost(tnr);
                         } else {
                             Toast.makeText(AddEvent.this, "Error: something went wrong", Toast.LENGTH_SHORT ).show();
                         }
@@ -133,28 +132,6 @@ public class AddEvent extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<JSONgetSpielterminResponse> call, Throwable t) {
-                        Toast.makeText(AddEvent.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }
-
-    public void addHost(Teilnehmer teilnehmer) {
-        NetworkService.getInstance()
-                .getRestApiClient()
-                .createTeilnehmer(teilnehmer)
-                .enqueue(new Callback<TeilnehmerResponse>() {
-                    @Override
-                    public void onResponse(Call<TeilnehmerResponse> call, Response<TeilnehmerResponse> response) {
-                        if(response.isSuccessful()) {
-                            Toast.makeText(AddEvent.this,"You have been added as host",Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(AddEvent.this, "Error: something went wrong", Toast.LENGTH_SHORT ).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<TeilnehmerResponse> call, Throwable t) {
                         Toast.makeText(AddEvent.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

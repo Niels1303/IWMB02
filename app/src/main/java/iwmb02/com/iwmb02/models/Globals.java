@@ -5,6 +5,7 @@ package iwmb02.com.iwmb02.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 public class Globals {
 
@@ -25,6 +26,7 @@ public class Globals {
     private Date createdAt;
     private Teilnehmer[] teilnehmerRespons;
     private ArrayList<Spieltermin> spieltermine;
+    private Map.Entry<Date,ArrayList<Teilnehmer>> eventData;
 
     public boolean isLoggedIn() {
         return isLoggedIn;
@@ -80,5 +82,13 @@ public class Globals {
 
     public void setTeilnehmerRespons(Teilnehmer[] teilnehmerRespons) {
         this.teilnehmerRespons = teilnehmerRespons;
+    }
+
+    public Map.Entry<Date, ArrayList<Teilnehmer>> getEventData() {
+        return eventData;
+    }
+
+    public void setEventData(Map.Entry<Date, ArrayList<Teilnehmer>> eventData) {
+        this.eventData = eventData;
     }
 }

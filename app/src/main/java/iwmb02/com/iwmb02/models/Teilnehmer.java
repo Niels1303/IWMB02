@@ -14,9 +14,9 @@ public class Teilnehmer {
     @SerializedName("userId")
     @Expose
     private User userId;
-    @SerializedName("ausrichter")
-    @Expose
-    private boolean ausrichter;
+//    @SerializedName("ausrichter")
+//    @Expose
+//    private boolean ausrichter;
     @SerializedName("selectedGame")
     @Expose
     private String selectedGame;
@@ -48,13 +48,13 @@ public class Teilnehmer {
         this.userId = userId;
     }
 
-    public boolean isAusrichter() {
-        return ausrichter;
-    }
-
-    public void setAusrichter(boolean ausrichter) {
-        this.ausrichter = ausrichter;
-    }
+//    public boolean isAusrichter() {
+//        return ausrichter;
+//    }
+//
+//    public void setAusrichter(boolean ausrichter) {
+//        this.ausrichter = ausrichter;
+//    }
 
     public String getSelectedGame() {
         return selectedGame;

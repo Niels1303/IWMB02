@@ -151,4 +151,12 @@ public interface RestApiClient {
     @GET("/classes/Essensrichtung")
     Call<EssensrichtungResponse> getEssensrichtung();
 
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @PUT("/classes/Spieltermin/{id}")
+    Call<Spieltermin> putSpieltermin(@Path("id") String id, @Body Spieltermin spieltermin);
+
 }

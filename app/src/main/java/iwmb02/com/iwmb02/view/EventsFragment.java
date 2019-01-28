@@ -23,10 +23,11 @@ import java.util.*;
 
 public class EventsFragment extends Fragment implements TeilnehmerAdapter.OnItemListener {
 
-    private ArrayList<Teilnehmer> list = new ArrayList<Teilnehmer>();
+    private ArrayList<Teilnehmer> list = new ArrayList<>();
     private TeilnehmerAdapter teilnehmerAdapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addEvent;
+    private Map<Date,ArrayList<Teilnehmer>> map = new TreeMap<Date,ArrayList<Teilnehmer>>(); //Wir benutzen eine Treemap hier, da diese Datenstruktur automatisch nach dem Key sortiert wird. Somit werden im Key das Eventdatum und im Value eine Liste aller Teilnehmer stehen.
 
     @Nullable
     @Override
@@ -57,7 +58,6 @@ public class EventsFragment extends Fragment implements TeilnehmerAdapter.OnItem
                         if(response.isSuccessful()) {
                             TeilnehmerResponse resp = response.body();
                             Teilnehmer[] teilnehmer = resp.getResults();
-                            Map<Date,ArrayList<Teilnehmer>> map = new TreeMap<Date,ArrayList<Teilnehmer>>(); //Wir benutzen eine Treemap hier, da diese Datenstruktur automatisch nach dem Key sortiert wird. Somit werden im Key das Eventdatum und im Value eine Liste aller Teilnehmer stehen.
                             //LinkedHashMap<Date,ArrayList<Teilnehmer>> map = new LinkedHashMap<>(); //Um alle vorhandenen Teilnehmer nach dem Eventdatum zu gliedern, sollen die Daten als HashMap an den Adapter übermittelt werden.
                             for(int i=0; i < teilnehmer.length; i++) {
                                 Date TreeMapKey = teilnehmer[i].getSpielterminId().getEventDate().getIso();
@@ -91,6 +91,10 @@ public class EventsFragment extends Fragment implements TeilnehmerAdapter.OnItem
 
     @Override
     public void onItemClick(int position) {
+        ArrayList<Map.Entry<Date,ArrayList<Teilnehmer>>> indexedList = new ArrayList<>(map.entrySet());
+        Map.Entry<Date,ArrayList<Teilnehmer>> entry = indexedList.get(position);
+        Globals.getInstance().setEventData(entry); //Die Daten des Events werden in der "Global" Klasse gespeichert um einfach darauf in der EditEvent Activity zugreifen zu können.
+
         Intent intent = new Intent(getActivity(), EditEvent.class);
         startActivity(intent);
     }

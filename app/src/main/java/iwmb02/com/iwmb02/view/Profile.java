@@ -159,7 +159,7 @@ public class Profile extends AppCompatActivity {
                             mAdapter.addItem("Real name: " + joinUserBrettspiele[0].getUser().getVorname() + " " + joinUserBrettspiele[0].getUser().getNachname());
                             mAdapter.addItem("Amount of hosted Game Nights: " + joinUserBrettspiele[0].getUser().getAusrichterCounter().toString());
                             mAdapter.addItem("Amount of joined Game Nights: " + joinUserBrettspiele[0].getUser().getTeilnehmerCounter().toString());
-                            mAdapter.addSectionHeaderItem("My owned Games");
+                            mAdapter.addSectionHeaderItem("My Boardgames");
                             int length = Array.getLength(joinUserBrettspiele);
                             for (int i = 0; i < length; i++) {
                                 mAdapter.addItem(joinUserBrettspiele[i].getBrettspiel().getName());

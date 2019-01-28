@@ -49,8 +49,8 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
         ArrayList<Teilnehmer> teilnehmer = entry.getValue();
         for(int i=0; i < teilnehmer.size(); i++) {
             holder.eventFoodSupplierTextView.append(teilnehmer.get(i).getUserId().getVorname());
-            if(teilnehmer.get(i).isAusrichter()) {
-                holder.eventFoodSupplierTextView.append(" (host)");
+            if(teilnehmer.get(i).getUserId().getObjectId().equals(teilnehmer.get(i).getSpielterminId().getAusrichter().getObjectId())) {
+                holder.eventFoodSupplierTextView.append(" [HOST]");
             }
             if(i < teilnehmer.size()-1) {
                 holder.eventFoodSupplierTextView.append(", "); //Nach dem letzten Teilnehmer sollte kein Komma gesetzt werden.
@@ -63,7 +63,7 @@ public class TeilnehmerAdapter extends RecyclerView.Adapter<TeilnehmerAdapter.Sp
         }
         if(teilnehmer.get(0).getSpielterminId().getGame() != null) {
             holder.eventFoodSupplierTextView.append(System.getProperty("line.separator"));
-            holder.eventFoodSupplierTextView.append("Game(s): " + teilnehmer.get(0).getSpielterminId().getGame());
+            holder.eventFoodSupplierTextView.append("Game: " + teilnehmer.get(0).getSpielterminId().getGame());
         }
 
     }

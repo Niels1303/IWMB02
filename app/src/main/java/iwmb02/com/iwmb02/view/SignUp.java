@@ -55,7 +55,7 @@ public class SignUp extends AppCompatActivity {
                 user.setEmail(email);
                 user.setPassword(password);
                 user.setAusrichterCounter(0);
-
+                user.setTeilnehmerCounter(0);
 
                 progressDialog = new ProgressDialog(SignUp.this);
                 progressDialog.show();

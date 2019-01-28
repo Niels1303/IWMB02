@@ -30,6 +30,9 @@ public class Spieltermin implements Comparable<Spieltermin> {
     @SerializedName("game")
     @Expose
     private String game;
+    @SerializedName("ausrichter")
+    @Expose
+    private User ausrichter;
 
     public String getType() {
         return type;
@@ -94,6 +97,14 @@ public class Spieltermin implements Comparable<Spieltermin> {
 
     public void setGame(String game) {
         this.game = game;
+    }
+
+    public User getAusrichter() {
+        return ausrichter;
+    }
+
+    public void setAusrichter(User ausrichter) {
+        this.ausrichter = ausrichter;
     }
 
     //Methode um die Spieltermine chronologisch nach Eventdatum zu sortieren

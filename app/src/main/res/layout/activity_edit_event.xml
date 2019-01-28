@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.EditEvent">
-
-</android.support.constraint.ConstraintLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvEventDate" android:textStyle="bold"
+                    android:textAlignment="center" android:textSize="18sp" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:text="EventDate"/>
+            <TextView
+                    android:text="(only the Host can make changes to that Event)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvDisclaimer" android:textAlignment="center"
+                    android:textSize="12sp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvParticipants"
+                    android:layout_marginTop="16dp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+                    android:textStyle="bold"/>
+            <TextView
+                    android:text="Change Host for this Game Night"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvHostHead" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textAlignment="center"/>
+            <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/spinHost" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+            <TextView
+                    android:text="Change Game to be played"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvGameHead" android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" android:layout_marginTop="16dp" android:textAlignment="center"/>
+            <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/spinGame" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+            <TextView
+                    android:text="Edit Food Supplier Url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvFoodHead" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textAlignment="center"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/etFood" android:layout_marginTop="16dp" android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+            <Button
+                    android:text="Join / Update Event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/btnJoinEvent" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+        </LinearLayout>
+</ScrollView>
