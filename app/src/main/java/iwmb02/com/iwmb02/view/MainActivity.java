@@ -51,6 +51,25 @@ public class MainActivity extends AppCompatActivity {
             // Beim Drücken auf "logout" wird global.isLoggedIn auf "false" gesetzt. Dadurch muss sich der Anwender wieder einlogen.
             Globals global = Globals.getInstance();
             global.setLoggedIn(false);
+            // Die Session wird in der DB gelöscht
+            NetworkService.getInstance()
+                    .getRestApiClient()
+                    .logout(Globals.getInstance().getSessionToken())
+                    .enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MainActivity.this,"Logout successful",Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(MainActivity.this, "Error: something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
+                        }
+                    });
             //... und der Benutzer zur Login Activity weitergeleitet.
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);

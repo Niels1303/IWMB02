@@ -1,8 +1,10 @@
 package iwmb02.com.iwmb02.services;
 import iwmb02.com.iwmb02.models.*;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public interface RestApiClient {
@@ -158,5 +160,20 @@ public interface RestApiClient {
     })
     @PUT("/classes/Spieltermin/{id}")
     Call<Spieltermin> putSpieltermin(@Path("id") String id, @Body Spieltermin spieltermin);
+
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+    })
+    @POST("/logout")
+    Call<User> logout(@Header("X-Parse-Session-Token") String token);
+
+    @Headers({
+            "X-Parse-Application-Id: pGAKUNimtJjDaR4rgXvUPyuhWLYDmbBSLsVHIu9T",
+            "X-Parse-REST-API-Key: TMuft7MLYvlz8uNY7c8DIno2yiQXRQj1LgNtlzOb",
+            "Content-Type: application/json"
+    })
+    @PUT("/users/{id}")
+    Call<User> updateUserCounter(@Header("X-Parse-Session-Token") String token, @Path("id") String id, @Body RequestBody body);
 
 }

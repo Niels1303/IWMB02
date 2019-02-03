@@ -1,12 +1,18 @@
 package iwmb02.com.iwmb02.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import iwmb02.com.iwmb02.R;
 import iwmb02.com.iwmb02.models.*;
 import iwmb02.com.iwmb02.services.NetworkService;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +31,7 @@ public class EditEvent extends AppCompatActivity {
     List<String> hostList = new ArrayList<>();
     List<String> gameList = new ArrayList<>();
     private DateFormat dateFormat = new SimpleDateFormat("dd  MMMM yyyy");
-    private TextView tvEventDate, tvParticipants;
+    private TextView tvEventDate, tvParticipants, tvGame, tvFoodSupplier;
     private Spinner spinHost, spinGame;
     private String selectedHost, selectedGame;
     private EditText etFood;
@@ -40,12 +46,17 @@ public class EditEvent extends AppCompatActivity {
 
         String  strDate = dateFormat.format(entry.getKey());
         tvEventDate = findViewById(R.id.tvEventDate);
-        tvEventDate.setText("Game Night Date: " + strDate);
+        tvEventDate.setText("Game Night (" + strDate + ")");
         spinGame = findViewById(R.id.spinGame);
         spinHost = findViewById(R.id.spinHost);
         etFood = findViewById(R.id.etFood);
         tvParticipants = findViewById(R.id.tvParticipants);
         btnJoinEvent = findViewById(R.id.btnJoinEvent);
+        tvGame = findViewById(R.id.tvGame);
+        tvFoodSupplier = findViewById(R.id.tvFoodSupplier);
+
+        android.support.v7.widget.Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         etFood.setText(teilnehmer.get(0).getSpielterminId().getFoodSupplier());
 
@@ -67,32 +78,76 @@ public class EditEvent extends AppCompatActivity {
             }
         }
 
-        tvParticipants.setText("Participants:");
-        tvParticipants.append(System.getProperty("line.separator"));
         for(int i=0; i < teilnehmer.size(); i++) {
-            tvParticipants.append(System.getProperty("line.separator"));
             tvParticipants.append(teilnehmer.get(i).getUserId().getVorname() + " " + teilnehmer.get(i).getUserId().getNachname() + " (Joined Events: " + teilnehmer.get(i).getUserId().getTeilnehmerCounter().toString() + " , Hosted Events: " + teilnehmer.get(i).getUserId().getAusrichterCounter().toString() + " )");
             if(teilnehmer.get(i).getSpielterminId().getAusrichter().getObjectId().equals(teilnehmer.get(i).getUserId().getObjectId())) {
                 tvParticipants.append(" [HOST]");
             }
+            if(i < teilnehmer.size() -1){
+                tvParticipants.append(System.getProperty("line.separator"));
+            }
         }
-        tvParticipants.append(System.getProperty("line.separator"));
-        tvParticipants.append(System.getProperty("line.separator"));
-        tvParticipants.append("Game: ");
+
         if(teilnehmer.get(0).getSpielterminId().getGame() != null) {
-            tvParticipants.append(teilnehmer.get(0).getSpielterminId().getGame());
+            tvGame.setText(teilnehmer.get(0).getSpielterminId().getGame());
+        } else {
+            tvGame.setText("(to be set)");
         }
-        tvParticipants.append(System.getProperty("line.separator"));
-        tvParticipants.append(System.getProperty("line.separator"));
-        tvParticipants.append("Food Supplier: ");
+
         if(teilnehmer.get(0).getSpielterminId().getFoodSupplier() != null){
-            tvParticipants.append(teilnehmer.get(0).getSpielterminId().getFoodSupplier());
+            tvFoodSupplier.setText(teilnehmer.get(0).getSpielterminId().getFoodSupplier());
+        } else {
+            tvFoodSupplier.setText("(to be set)");
         }
 
 
         addItemsOnSpinner1();
         addItemsOnSpinner2();
         setBtnListener();
+    }
+
+    //Laden des Custom Menu (custom_menu.xml).
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mMenuInflater = getMenuInflater();
+        mMenuInflater.inflate(R.menu.custom_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            // Beim Drücken auf "logout" wird global.isLoggedIn auf "false" gesetzt. Dadurch muss sich der Anwender wieder einlogen.
+            Globals global = Globals.getInstance();
+            global.setLoggedIn(false);
+            // Die Session wird in der DB gelöscht
+            NetworkService.getInstance()
+                    .getRestApiClient()
+                    .logout(Globals.getInstance().getSessionToken())
+                    .enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(EditEvent.this,"Logout successful",Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(EditEvent.this, "Error: something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(EditEvent.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
+                        }
+                    });
+            //... und der Benutzer zur Login Activity weitergeleitet.
+            Intent intent = new Intent(EditEvent.this, Login.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_profile) {
+            Intent intent = new Intent(EditEvent.this, Profile.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void addItemsOnSpinner1() {
@@ -107,7 +162,7 @@ public class EditEvent extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedHost = parent.getItemAtPosition(position).toString();
                 selectedHostPos = position;
-                Toast.makeText(EditEvent.this, selectedHost, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(EditEvent.this, selectedHost, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -140,7 +195,7 @@ public class EditEvent extends AppCompatActivity {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     //Speichert das ausgewählte Brettspiel im DropdownMenü in der Variabel "selectedGame"
                                     selectedGame = parent.getItemAtPosition(position).toString();
-                                    Toast.makeText(EditEvent.this, selectedGame, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(EditEvent.this, selectedGame, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -224,6 +279,7 @@ public class EditEvent extends AppCompatActivity {
                         if(response.isSuccessful()){
                          Toast.makeText(EditEvent.this,"You successfully joined",Toast.LENGTH_SHORT).show();
                          hasJoined = true; //Damit wird verhindert, dass bei einem 2. Klick der User ein 2. Mal angelegt wird.
+                         updateTeilnehmerCounter(); //Der TeilnehmerCounter des Users wird um 1 erhöht.
                         } else{
                             Toast.makeText(EditEvent.this, "Error: something went wrong", Toast.LENGTH_SHORT).show();
                         }
@@ -250,6 +306,33 @@ public class EditEvent extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updateTeilnehmerCounter() {
+        String token = Globals.getInstance().getSessionToken();
+        String id = Globals.getInstance().getUserId();
+        String json = "{ \"teilnehmerCounter\":{\"__op\":\"Increment\",\"amount\":1}}";
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"),json);
+        NetworkService.getInstance()
+                .getRestApiClient()
+                .updateUserCounter(token,id,body)
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(EditEvent.this,"TeilnehmerCounter incremented",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(EditEvent.this, "Error: something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(EditEvent.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
     }
 
 }

@@ -41,6 +41,7 @@ public class Profile extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         fbtnAddGame = findViewById(R.id.fbtnAddGame);
+        lv = findViewById(R.id.lvProfile);
 
         addBtnOnclickListener();
         getGames();
@@ -60,6 +61,25 @@ public class Profile extends AppCompatActivity {
             // Beim Drücken auf "logout" wird global.isLoggedIn auf "false" gesetzt. Dadurch muss sich der Anwender wieder einlogen.
             Globals global = Globals.getInstance();
             global.setLoggedIn(false);
+            // Die Session wird in der DB gelöscht
+            NetworkService.getInstance()
+                    .getRestApiClient()
+                    .logout(Globals.getInstance().getSessionToken())
+                    .enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(Profile.this,"Logout successful",Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(Profile.this, "Error: something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(Profile.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT ).show();
+                        }
+                    });
             //... und der Benutzer zur Login Activity weitergeleitet.
             Intent intent = new Intent(Profile.this, Login.class);
             startActivity(intent);
@@ -151,8 +171,6 @@ public class Profile extends AppCompatActivity {
                             JoinUserBrettspielResponse resp = response.body();
                             JoinUserBrettspiel[] joinUserBrettspiele = resp.getResults();
 
-                            lv = findViewById(R.id.lvProfile);
-
                             mAdapter = new ProfileListAdapter(Profile.this);
                             mAdapter.addSectionHeaderItem("My Profile");
                             mAdapter.addItem("Username: " + joinUserBrettspiele[0].getUser().getUsername());
@@ -161,8 +179,10 @@ public class Profile extends AppCompatActivity {
                             mAdapter.addItem("Amount of joined Game Nights: " + joinUserBrettspiele[0].getUser().getTeilnehmerCounter().toString());
                             mAdapter.addSectionHeaderItem("My Boardgames");
                             int length = Array.getLength(joinUserBrettspiele);
-                            for (int i = 0; i < length; i++) {
-                                mAdapter.addItem(joinUserBrettspiele[i].getBrettspiel().getName());
+                            if(length > 0){
+                                for (int i = 0; i < length; i++) {
+                                    mAdapter.addItem(joinUserBrettspiele[i].getBrettspiel().getName());
+                                }
                             }
 
                             lv.setAdapter(mAdapter);

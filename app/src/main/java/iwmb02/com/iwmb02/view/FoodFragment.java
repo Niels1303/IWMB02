@@ -118,7 +118,7 @@ public class FoodFragment extends Fragment {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     //Speichert das ausgewählte Brettspiel im DropdownMenü in der Variabel "selectedGame"
                                     selectedFood = parent.getItemAtPosition(position).toString();
-                                    Toast.makeText(getActivity(), selectedFood, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getActivity(), selectedFood, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override

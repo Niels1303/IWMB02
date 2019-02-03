@@ -7,22 +7,52 @@
     android:layout_height="match_parent">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvEventDate" android:textStyle="bold"
-                    android:textAlignment="center" android:textSize="18sp" android:layout_marginTop="16dp"
+                    android:textAlignment="center" android:textSize="15sp" android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:text="EventDate"/>
+            <TextView
+                    android:text="Participants:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvHeadPart" android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvParticipants"
+                    android:layout_marginTop="8dp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+            />
+            <TextView
+                    android:text="Game:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvHeadGame" android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvGame" android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+            <TextView
+                    android:text="Food Supplier:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvHeadFood" android:layout_marginTop="8dp"
+                    android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/tvFoodSupplier"
+                    android:layout_marginTop="8dp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
             <TextView
                     android:text="(only the Host can make changes to that Event)"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvDisclaimer" android:textAlignment="center"
-                    android:textSize="12sp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/tvParticipants"
-                    android:layout_marginTop="16dp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
-                    android:textStyle="bold"/>
+                    android:textSize="12sp" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"/>
             <TextView
                     android:text="Change Host for this Game Night"
                     android:layout_width="match_parent"
@@ -30,29 +60,29 @@
                     android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textAlignment="center"/>
             <Spinner
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/spinHost" android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content" android:id="@+id/spinHost" android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
             <TextView
                     android:text="Change Game to be played"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvGameHead" android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp" android:layout_marginTop="16dp" android:textAlignment="center"/>
+                    android:layout_marginRight="16dp" android:layout_marginTop="8dp" android:textAlignment="center"/>
             <Spinner
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/spinGame" android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content" android:id="@+id/spinGame" android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
             <TextView
                     android:text="Edit Food Supplier Url"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/tvFoodHead" android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content" android:id="@+id/tvFoodHead" android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp" android:layout_marginRight="16dp" android:textAlignment="center"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/etFood" android:layout_marginTop="16dp" android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
+                    android:id="@+id/etFood" android:layout_marginTop="8dp" android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" android:textSize="14sp"/>
             <Button
                     android:text="Join / Update Event"
                     android:layout_width="match_parent"

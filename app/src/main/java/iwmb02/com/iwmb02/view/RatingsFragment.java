@@ -16,6 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -157,10 +158,11 @@ public class RatingsFragment extends Fragment {
                                 }
                             }
                             if(scoreH > 0) { // Es reicht aus einen Wert zu überprüfen, denn Ratings werden immer insgesamt in der DB gespeichert
-                                tvScoreHost.setText("Score: " + (scoreH / count) + " ( " + count + " votes)");
-                                tvScoreGames.setText("Score: " + (scoreG / count) + " ( " + count + " votes)");
-                                tvScoreEvening.setText("Score: " + (scoreE / count) + " ( " + count + " votes)");
-                                tvScoreFood.setText("Score: " + (scoreF / count) + " ( " + count + " votes)");
+                                DecimalFormat df = new DecimalFormat("#.0"); //Es soll max 1 Nachkommastelle abgebildet werden
+                                tvScoreHost.setText("Score: " + df.format((scoreH / count)) + " ( " + count + " votes)");
+                                tvScoreGames.setText("Score: " + df.format((scoreG / count)) + " ( " + count + " votes)");
+                                tvScoreEvening.setText("Score: " + df.format((scoreE / count)) + " ( " + count + " votes)");
+                                tvScoreFood.setText("Score: " + df.format((scoreF / count)) + " ( " + count + " votes)");
                             } else {
                                 tvScoreHost.setText("Score: no votes yet"); //Reset des Textes falls noch keine Ratings vorhanden sind
                                 tvScoreGames.setText("Score: no votes yet");

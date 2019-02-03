@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true" app:srcCompat="@android:drawable/stat_notify_sync_noanim"
-            android:id="@+id/btnRefresh" app:backgroundTint="@color/colorLightGreen"
+            android:id="@+id/btnRefresh" app:backgroundTint="@color/colorAccent"
             android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

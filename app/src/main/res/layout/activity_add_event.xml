@@ -28,7 +28,7 @@
                 android:text="Create new event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textView2" android:textStyle="bold"
-                android:textSize="18sp" android:textAlignment="center"/>
+                android:textSize="15sp" android:textAlignment="center"/>
         <CalendarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/CalendarView" android:paddingTop="16dp"/>
