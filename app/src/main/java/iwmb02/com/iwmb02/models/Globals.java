@@ -9,15 +9,15 @@ import java.util.Map;
 
 public class Globals {
 
-    private static Globals instance = new Globals();
+    private static Globals instance;
 
     public static Globals getInstance() {
+        if (instance == null) {
+            instance = new Globals();
+        }
         return instance;
     }
 
-    public static void setInstance(Globals instance) {
-        Globals.instance = instance;
-    }
 
     private boolean isLoggedIn;
     private String userId;

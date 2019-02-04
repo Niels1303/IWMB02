@@ -170,19 +170,21 @@ public class Profile extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             JoinUserBrettspielResponse resp = response.body();
                             JoinUserBrettspiel[] joinUserBrettspiele = resp.getResults();
-
                             mAdapter = new ProfileListAdapter(Profile.this);
                             mAdapter.addSectionHeaderItem("My Profile");
-                            mAdapter.addItem("Username: " + joinUserBrettspiele[0].getUser().getUsername());
-                            mAdapter.addItem("Real name: " + joinUserBrettspiele[0].getUser().getVorname() + " " + joinUserBrettspiele[0].getUser().getNachname());
-                            mAdapter.addItem("Amount of hosted Game Nights: " + joinUserBrettspiele[0].getUser().getAusrichterCounter().toString());
-                            mAdapter.addItem("Amount of joined Game Nights: " + joinUserBrettspiele[0].getUser().getTeilnehmerCounter().toString());
-                            mAdapter.addSectionHeaderItem("My Boardgames");
-                            int length = Array.getLength(joinUserBrettspiele);
-                            if(length > 0){
-                                for (int i = 0; i < length; i++) {
+                            if(joinUserBrettspiele.length > 0) {
+                                mAdapter.addItem("Username: " + joinUserBrettspiele[0].getUser().getUsername());
+                                mAdapter.addItem("Real name: " + joinUserBrettspiele[0].getUser().getVorname() + " " + joinUserBrettspiele[0].getUser().getNachname());
+                                mAdapter.addItem("Amount of hosted Game Nights: " + joinUserBrettspiele[0].getUser().getAusrichterCounter().toString());
+                                mAdapter.addItem("Amount of joined Game Nights: " + joinUserBrettspiele[0].getUser().getTeilnehmerCounter().toString());
+                                mAdapter.addSectionHeaderItem("My Boardgames");
+                                for (int i = 0; i < joinUserBrettspiele.length; i++) {
                                     mAdapter.addItem(joinUserBrettspiele[i].getBrettspiel().getName());
                                 }
+                            }else{ //Falls der User noch kein Brettspiel mit seinem User verlinkt hat, wird vorübergehend folgende Info angezeigt. Es ist nicht sehr elegant, aber damit werden die Anfragen an das Backend minimiert.
+                                mAdapter.addItem("Username: " + Globals.getInstance().getUsername());
+                                mAdapter.addSectionHeaderItem("My Boardgames");
+                                mAdapter.addItem("No games yet");
                             }
 
                             lv.setAdapter(mAdapter);
